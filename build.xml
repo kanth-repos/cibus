@@ -6,9 +6,11 @@
 
   <property name="fromRes" value="src/main/resources" />
   <property name="fromSrc" value="src/main/java" />
-  <property name="fromWeb" value="src/main/webapp/WEB-INF" />
+  <property name="fromApp" value="src/main/webapp" />
+  <property name="fromWeb" value="${fromApp}/WEB-INF" />
   <property name="fromLib" value="libs" />
 
+  <property name="toApp" value="${dist}/cibus" />
   <property name="toWeb" value="${dist}/cibus/WEB-INF" />
   <property name="toLib" value="${toWeb}/lib" />
   <property name="toClasses" value="${toWeb}/classes" />
@@ -39,8 +41,8 @@
       <fileset dir="${fromRes}" />
     </copy>
 
-    <copy todir="${toWeb}">
-      <fileset dir="${fromWeb}" />
+    <copy todir="${toApp}">
+      <fileset dir="${fromApp}" />
     </copy>
   </target>
 
@@ -54,9 +56,10 @@
   <!-- Used to create war file-->
   <target name="war" depends="build">
     <war destfile="${out}/cibus.war" webxml="${fromWeb}/web.xml" >
+      <fileset dir="${toApp}" excludes="WEB-INF/**" />
       <classes dir="${toClasses}" />
       <lib dir="${fromLib}" >
-        <exclude name="jakarta.servlet-api-6.1.0.jar" />
+        <exclude name="javax.servlet-api-4.0.1.jar" />
       </lib>
     </war>
   </target>
