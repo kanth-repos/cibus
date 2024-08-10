@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "src/main/java"
+    ],
+    "cSpell.words": [
+        "cibus",
+        "jdbc",
+        "MYSQLURL"
+    ]
+}

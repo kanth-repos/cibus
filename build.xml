@@ -1,0 +1,75 @@
+<project name="cibus" default="war" basedir=".">
+  <description>A Simple Food Application to Learn Struts, Ant, and JDBC</description>
+
+  <property name="dist" value="target" />
+  <property name="out" value="${dist}/out" />
+
+  <property name="fromRes" value="src/main/resources" />
+  <property name="fromSrc" value="src/main/java" />
+  <property name="fromWeb" value="src/main/webapp/WEB-INF" />
+  <property name="fromLib" value="libs" />
+
+  <property name="toWeb" value="${dist}/cibus/WEB-INF" />
+  <property name="toLib" value="${toWeb}/lib" />
+  <property name="toClasses" value="${toWeb}/classes" />
+  <property name="toRes" value="${toWeb}/classes" />
+
+  <!-- Used to clean the folder that created during build-->
+  <target name="clean">
+    <delete dir="${dist}" />
+    <delete dir="${out}" />
+  </target>
+
+  <!-- Used to make folders for build and dist-->
+  <target name="mkdir" depends="clean">
+    <mkdir dir="${dist}" />
+    <mkdir dir="${out}" />
+    <mkdir dir="${toWeb}" />
+    <mkdir dir="${toLib}" />
+    <mkdir dir="${toClasses}" />
+  </target>
+
+  <!-- Used to copy files to the dist folder-->
+  <target name="copy" depends="mkdir">
+    <copy todir="${toLib}">
+      <fileset dir="${fromLib}" />
+    </copy>
+
+    <copy todir="${toRes}">
+      <fileset dir="${fromRes}" />
+    </copy>
+
+    <copy todir="${toWeb}">
+      <fileset dir="${fromWeb}" />
+    </copy>
+  </target>
+
+  <!-- Used to compile the java files-->
+  <target name="build" depends="copy">
+    <javac srcdir="${fromSrc}" destdir="${toClasses}" includeantruntime="false">
+      <classpath><fileset dir="${fromLib}" includes="**/*.jar" /></classpath>
+    </javac>
+  </target>
+
+  <!-- Used to create war file-->
+  <target name="war" depends="build">
+    <war destfile="${out}/cibus.war" webxml="${fromWeb}/web.xml" >
+      <classes dir="${toClasses}" />
+      <lib dir="${fromLib}" >
+        <exclude name="jakarta.servlet-api-6.1.0.jar" />
+      </lib>
+    </war>
+  </target>
+
+  <!-- Used to create mysql tables from sql/create-tables.sql -->
+  <target name="mktables">
+    <sql
+      classpath="${fromLib}/mysql-connector-j-9.0.0.jar"
+      driver="com.mysql.cj.jdbc.Driver"
+      userid="user"
+      password="password"
+      url="jdbc:mysql://localhost:3306/cibus">
+      <transaction src="sql/create-tables.sql" />
+    </sql>
+  </target>
+</project>
