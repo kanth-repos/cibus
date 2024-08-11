@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 import com.cibus.common.dtos.OrderDto;
 import com.cibus.common.models.OrderModel;
-import com.cibus.exceptions.DatabaseException;
-import com.cibus.interfaces.IOrderRepository;
+import com.cibus.interfaces.repository.IOrderRepository;
 
 public class OrderRepository implements IOrderRepository {
   public OrderRepository(Connection connection) {
@@ -16,20 +15,18 @@ public class OrderRepository implements IOrderRepository {
   private Connection connection;
 
   @Override
-  public void addOrder(OrderDto order) {
+  public void addOrder(OrderDto order) throws Exception {
     final var query = "INSERT INTO orders (user_id, food_id, quantity) VALUES (?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, order.getUserId());
       stmt.setLong(2, order.getFoodId());
       stmt.setInt(3, order.getQuantity());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public ArrayList<OrderModel> getOrdersByUserId(long id) {
+  public ArrayList<OrderModel> getOrdersByUserId(long id) throws Exception {
     final var query = "SELECT * FROM orders where user_id = " + id;
 
     try (var stmt = connection.createStatement()) {
@@ -46,31 +43,25 @@ public class OrderRepository implements IOrderRepository {
       }
 
       return orders;
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void updateOrder(OrderModel order) {
+  public void updateOrder(OrderModel order) throws Exception {
     final var query = "UPDATE orders SET quantity = ? WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setInt(1, order.getQuantity());
       stmt.setLong(2, order.getId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void deleteOrder(OrderModel order) {
+  public void deleteOrder(OrderModel order) throws Exception {
     final var query = "DELETE FROM orders WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, order.getId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 }

@@ -4,7 +4,7 @@
   <constant name="struts.devMode" value="true" />
 
   <package name="cibus" extends="struts-default">
-    <action name="index">
+    <action name="/">
       <result>/index.jsp</result>
     </action>
   </package>

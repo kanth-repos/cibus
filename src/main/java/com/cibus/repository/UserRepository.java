@@ -2,10 +2,10 @@ package com.cibus.repository;
 
 import java.sql.Connection;
 
+import com.cibus.common.dtos.UserDto;
 import com.cibus.common.models.UserModel;
-import com.cibus.exceptions.DatabaseException;
 import com.cibus.exceptions.UserNotFoundException;
-import com.cibus.interfaces.IUserRepository;
+import com.cibus.interfaces.repository.IUserRepository;
 
 public class UserRepository implements IUserRepository {
   public UserRepository(Connection connection) {
@@ -15,7 +15,7 @@ public class UserRepository implements IUserRepository {
   private Connection connection;
 
   @Override
-  public void updateUser(UserModel user) {
+  public void updateUser(UserModel user) throws Exception {
     final var query = "UPDATE users SET type = ?, name = ?, mobile = ?, email = ?, password = ? WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, user.getType());
@@ -25,13 +25,11 @@ public class UserRepository implements IUserRepository {
       stmt.setString(5, user.getPassword());
       stmt.setLong(6, user.getId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public UserModel getUser(long id) {
+  public UserModel getUser(long id) throws Exception {
     final var query = "SELECT * FROM users where id = " + id;
 
     try (var stmt = connection.createStatement()) {
@@ -48,13 +46,11 @@ public class UserRepository implements IUserRepository {
       user.setEmail(rs.getString(5));
       user.setPassword(rs.getString(6));
       return user;
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void addUser(UserModel user) {
+  public void addUser(UserDto user) throws Exception {
     final var query = "INSERT INTO users (type, name, mobile, email, password) VALUES (?, ?, ?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, user.getType());
@@ -63,19 +59,15 @@ public class UserRepository implements IUserRepository {
       stmt.setString(4, user.getEmail());
       stmt.setString(5, user.getPassword());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void deleteUser(UserModel user) {
+  public void deleteUser(UserModel user) throws Exception {
     final var query = "DELETE FROM users WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, user.getId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
-  }    
+  }
 }

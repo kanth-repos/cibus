@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 import com.cibus.common.dtos.HotelDto;
 import com.cibus.common.models.HotelModel;
-import com.cibus.exceptions.DatabaseException;
-import com.cibus.interfaces.IHotelRepository;
+import com.cibus.interfaces.repository.IHotelRepository;
 
 public class HotelRepository implements IHotelRepository {
   public HotelRepository(Connection connection) {
@@ -16,20 +15,18 @@ public class HotelRepository implements IHotelRepository {
   private Connection connection;
 
   @Override
-  public void addHotel(HotelDto hotel) {
+  public void addHotel(HotelDto hotel) throws Exception {
     final var query = "INSERT INTO hotels (name, city, owner_id) VALUES (?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, hotel.getName());
       stmt.setString(2, hotel.getCity());
       stmt.setLong(3, hotel.getOwnerId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public ArrayList<HotelModel> getHotelsByOwnerId(long ownerId) {
+  public ArrayList<HotelModel> getHotelsByOwnerId(long ownerId) throws Exception {
     final var query = "SELECT * FROM hotels where owner_id = " + ownerId;
     try (var stmt = connection.createStatement()) {
       var hotels = new ArrayList<HotelModel>();
@@ -44,13 +41,11 @@ public class HotelRepository implements IHotelRepository {
       }
 
       return hotels;
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public ArrayList<HotelModel> getHotels() {
+  public ArrayList<HotelModel> getHotels() throws Exception {
     final var query = "SELECT * FROM hotels";
     try (var stmt = connection.createStatement()) {
       var hotels = new ArrayList<HotelModel>();
@@ -65,32 +60,26 @@ public class HotelRepository implements IHotelRepository {
       }
 
       return hotels;
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void updateHotel(HotelModel hotel) {
+  public void updateHotel(HotelModel hotel) throws Exception {
     final var query = "UPDATE hotels SET name = ?, city = ? WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, hotel.getName());
       stmt.setString(2, hotel.getCity());
       stmt.setLong(3, hotel.getId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void deleteHotel(HotelModel hotel) {
+  public void deleteHotel(HotelModel hotel) throws Exception {
     final var query = "DELETE FROM hotels WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, hotel.getId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 }

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 import com.cibus.common.dtos.RatingDto;
 import com.cibus.common.models.RatingModel;
-import com.cibus.exceptions.DatabaseException;
-import com.cibus.interfaces.IRatingRepository;
+import com.cibus.interfaces.repository.IRatingRepository;
 
 public class RatingRepository implements IRatingRepository {
   public RatingRepository(Connection connection) {
@@ -16,7 +15,7 @@ public class RatingRepository implements IRatingRepository {
   private Connection connection;
 
   @Override
-  public void addRating(RatingDto rating) {
+  public void addRating(RatingDto rating) throws Exception {
     final var query = "INSERT INTO ratings (user_id, food_id, rating, message) VALUES (?, ?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, rating.getUserId());
@@ -24,13 +23,11 @@ public class RatingRepository implements IRatingRepository {
       stmt.setInt(3, rating.getRating());
       stmt.setString(4, rating.getMessage());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public ArrayList<RatingModel> getRatingsByHotelId(long id) {
+  public ArrayList<RatingModel> getRatingsByHotelId(long id) throws Exception {
     final var query = "SELECT * FROM ratings where hotel_id = " + id;
     try (var stmt = connection.createStatement()) {
       var ratings = new ArrayList<RatingModel>();
@@ -46,13 +43,11 @@ public class RatingRepository implements IRatingRepository {
       }
 
       return ratings;
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void updateRating(RatingModel rating) {
+  public void updateRating(RatingModel rating) throws Exception {
     final var query = "UPDATE ratings SET rating = ?, message = ? WHERE user_id = ? AND food_id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setInt(1, rating.getRating());
@@ -60,20 +55,16 @@ public class RatingRepository implements IRatingRepository {
       stmt.setLong(3, rating.getUserId());
       stmt.setLong(4, rating.getFoodId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 
   @Override
-  public void deleteRating(RatingModel rating) {
+  public void deleteRating(RatingModel rating) throws Exception {
     final var query = "DELETE FROM ratings WHERE user_id = ? AND food_id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, rating.getUserId());
       stmt.setLong(2, rating.getFoodId());
       stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DatabaseException(e);
     }
   }
 }
