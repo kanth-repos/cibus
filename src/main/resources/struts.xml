@@ -4,7 +4,16 @@
   <constant name="struts.devMode" value="true" />
 
   <package name="cibus" extends="struts-default">
-    <action name="/">
+    <action name="signup" class="com.cibus.controllers.SignUpAction">
+      <result name="input">/pages/signup.jsp</result>
+      <result name="success">/success.jsp</result>
+    </action>
+
+    <action name="signin" class="com.cibus.controllers.SignInAction">
+      <result name="input">/pages/signin.jsp</result>
+    </action>
+
+    <action name="index">
       <result>/index.jsp</result>
     </action>
   </package>

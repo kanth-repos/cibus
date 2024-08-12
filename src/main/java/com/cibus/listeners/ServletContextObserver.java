@@ -4,15 +4,20 @@ import com.cibus.constants.Constants;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class ServletContextObserver implements ServletContextListener {
-  @Resource(name = "jdbc/database")
-  private DataSource dataSource;
-
   @Override
   public void contextInitialized(ServletContextEvent sce) {
-    sce.getServletContext().setAttribute(Constants.DATA_SOURCE, dataSource);
+    try {
+      var envCtx = (Context) (new InitialContext()).lookup("java:comp/env");
+      DataSource dataSource = (DataSource) envCtx.lookup("jdbc/database");
+      sce.getServletContext().setAttribute(Constants.DATA_SOURCE, dataSource);
+    } catch (NamingException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
   type ENUM('owner', 'user') NOT NULL,
   name varchar(255) NOT NULL,
   mobile varchar(255) NOT NULL,
-  email varchar(255) NOT NULL,
+  email varchar(255) NOT NULL UNIQUE,
   password varchar(255) NOT NULL
 );
 

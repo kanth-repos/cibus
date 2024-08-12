@@ -9,9 +9,5 @@
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "libs/struts2-core-6.4.0.jar",
-        "libs/struts-annotations-1.0.8.jar",
-        "libs/javax.servlet-api-4.0.1.jar",
-        "libs/javax.annotation-api-1.3.2.jar"
-    ]
+    ],
 }

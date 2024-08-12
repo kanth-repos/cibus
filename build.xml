@@ -4,11 +4,12 @@
   <property name="dist" value="target" />
   <property name="out" value="${dist}/out" />
 
-  <property name="fromRes" value="src/main/resources" />
-  <property name="fromSrc" value="src/main/java" />
-  <property name="fromApp" value="src/main/webapp" />
-  <property name="fromWeb" value="${fromApp}/WEB-INF" />
-  <property name="fromLib" value="libs" />
+  <property name="fromRes"  value="src/main/resources" />
+  <property name="fromSrc"  value="src/main/java" />
+  <property name="fromApp"  value="src/main/webapp" />
+  <property name="fromMeta" value="${fromApp}/META-INF" />
+  <property name="fromWeb"  value="${fromApp}/WEB-INF" />
+  <property name="fromLib"  value="lib" />
 
   <property name="toApp" value="${dist}/cibus" />
   <property name="toWeb" value="${dist}/cibus/WEB-INF" />
@@ -48,7 +49,7 @@
 
   <!-- Used to compile the java files-->
   <target name="build" depends="copy">
-    <javac srcdir="${fromSrc}" destdir="${toClasses}" includeantruntime="false">
+    <javac srcdir="${fromSrc}" destdir="${toClasses}" includeantruntime="false" debug="true">
       <classpath><fileset dir="${fromLib}" includes="**/*.jar" /></classpath>
     </javac>
   </target>
@@ -57,6 +58,7 @@
   <target name="war" depends="build">
     <war destfile="${out}/cibus.war" webxml="${fromWeb}/web.xml" >
       <fileset dir="${toApp}" excludes="WEB-INF/**" />
+      <metainf dir="${fromMeta}" />
       <classes dir="${toClasses}" />
       <lib dir="${fromLib}" >
         <exclude name="javax.servlet-api-4.0.1.jar" />
