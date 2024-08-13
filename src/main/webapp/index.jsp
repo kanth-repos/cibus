@@ -10,7 +10,7 @@
   <body>
     <jsp:include page="components/navbar.jsp" />
     <div class="containter d-flex justify-content-center align-items-center fill-height">
-        Welcome to Cibus, Sign up to Continue!
+        Welcome to Cibus
     </div>
   </body>
 </html>

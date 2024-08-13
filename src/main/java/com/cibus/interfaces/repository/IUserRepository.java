@@ -4,6 +4,7 @@ import com.cibus.common.dtos.UserDto;
 import com.cibus.common.models.UserModel;
 
 public interface IUserRepository {
+  public UserModel getUser(String email) throws Exception;
   UserModel getUser(long userId) throws Exception;
   void addUser(UserDto user) throws Exception;
   void updateUser(UserModel user) throws Exception;

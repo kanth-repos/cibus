@@ -62,7 +62,7 @@
         </div>
         <div class="form-group py-2 d-flex justify-content-center">
           <button class="btn btn-primary" type="submit">
-            Submit
+            Sign Up
           </button>
         </div>
       </form>

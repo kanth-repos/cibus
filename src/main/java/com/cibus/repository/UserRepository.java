@@ -50,6 +50,29 @@ public class UserRepository implements IUserRepository {
   }
 
   @Override
+  public UserModel getUser(String email) throws Exception {
+    final var query = "SELECT * FROM users where email = ?";
+
+    try (var stmt = connection.prepareStatement(query)) {
+      stmt.setString(1, email);
+
+      var rs = stmt.executeQuery();
+
+      if(!rs.next()) {
+        throw new UserNotFoundException(String.valueOf(email));
+      }
+
+      var user = new UserModel(rs.getLong(1));
+      user.setType(rs.getString(2));
+      user.setName(rs.getString(3));
+      user.setMobile(rs.getString(4));
+      user.setEmail(rs.getString(5));
+      user.setPassword(rs.getString(6));
+      return user;
+    }
+  }
+
+  @Override
   public void addUser(UserDto user) throws Exception {
     final var query = "INSERT INTO users (type, name, mobile, email, password) VALUES (?, ?, ?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {

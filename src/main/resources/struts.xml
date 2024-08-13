@@ -4,17 +4,53 @@
   <constant name="struts.devMode" value="true" />
 
   <package name="cibus" extends="struts-default">
+    <interceptors>
+      <interceptor 
+        class="com.cibus.intercept.AuthInterceptor" 
+        name="requiresAuth" 
+      />
+
+      <interceptor-stack name="defaultWithauthStack">
+        <interceptor-ref name="requiresAuth" />
+        <interceptor-ref name="defaultStack" />
+      </interceptor-stack>
+    </interceptors>
+
+    <default-interceptor-ref name="defaultWithauthStack" />
+
+    <global-results>
+      <result name="signin">/pages/signin.jsp</result>
+    </global-results>
+
+    <action name="index"><result>/index.jsp</result></action>
+
+    <action name="signupForm">
+      <result>/pages/signup.jsp</result>
+    </action>
     <action name="signup" class="com.cibus.controllers.SignUpAction">
       <result name="input">/pages/signup.jsp</result>
-      <result name="success">/success.jsp</result>
+      <result name="success">/pages/success.jsp</result>
     </action>
 
+    <action name="signinForm">
+      <result>/pages/signin.jsp</result>
+    </action>
     <action name="signin" class="com.cibus.controllers.SignInAction">
+      <result name="success" type="redirect">dashboard</result>
       <result name="input">/pages/signin.jsp</result>
     </action>
 
-    <action name="index">
-      <result>/index.jsp</result>
+    <action name="dashboard" class="com.cibus.controllers.DashboardAction">
+      <result name="owner" type="redirect">owner</result>
+      <result name="user" type="redirect">user</result>
+    </action>
+
+    <action name="user" class="com.cibus.controllers.UserAction">
+      <result>/pages/user.jsp</result>
+    </action>
+
+    <action name="owner" class="com.cibus.controllers.OwnerAction">
+      <result>/pages/owner.jsp</result>
     </action>
   </package>
 </struts>

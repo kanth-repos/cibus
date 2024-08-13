@@ -1,9 +1,11 @@
 package com.cibus.common.dtos;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class UserDto {
   // Java Bean for User
   public void setPassword(String password) { 
-    this.password = password; 
+    this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray()); 
   }
 
   public void setType(String type) { 

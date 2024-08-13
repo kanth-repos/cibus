@@ -1,9 +1,15 @@
 package com.cibus.common.models;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class UserModel {
+  public boolean verifyPassword(String pass) {
+    return BCrypt.verifyer().verify(pass.toCharArray(), this.getPassword()).verified;
+  }
+
   // Java Bean for User
   public void setPassword(String password) { 
-    this.password = password; 
+    this.password = password;
   }
 
   public void setType(String type) { 

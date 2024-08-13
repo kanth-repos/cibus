@@ -17,7 +17,7 @@
           <label for="emailInput">Email address</label>
           <input
             type="email"
-            name="user.email"
+            name="email"
             class="form-control"
             id="emailInput"
             placeholder="Email"
@@ -27,7 +27,7 @@
           <label for="passInput">Password</label>
           <input
             type="password"
-            name="user.password"
+            name="password"
             class="form-control"
             id="passInput"
             placeholder="Password"
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group py-2 d-flex justify-content-center">
           <button class="btn btn-primary" type="submit">
-            Submit
+            Sign In
           </button>
         </div>
       </form>
