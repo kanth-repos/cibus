@@ -1,6 +1,8 @@
 package com.cibus.exceptions;
 
-public class UserNotFoundException extends RuntimeException {
+import java.sql.SQLException;
+
+public class UserNotFoundException extends SQLException {
   public UserNotFoundException(String message) { super(message); }
 
   public UserNotFoundException(String message, Throwable cause) {

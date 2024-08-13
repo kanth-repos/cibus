@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<nav class="navbar navbar-expand navbar-light fixed-top px-5">
+<nav class="navbar navbar-expand navbar-light px-5">
   <a class="navbar-brand" href="index">Cibus</a>
   <ul class="navbar-nav ms-auto">
     <s:if test="%{#session.userSession == null}">
@@ -16,6 +16,11 @@
       <li class="nav-item">
         <a class="nav-link" href="dashboard">Dashboard</a>
       </li>
+      <s:if test="%{#session.userSession.type == 'user'}">
+        <li class="nav-item">
+          <a class="nav-link" href="cart">Cart</a>
+        </li>
+      </s:if>
       <li>
         <a class="nav-link" href="signout">SignOut</a>
       </li>

@@ -11,7 +11,7 @@
     <jsp:include page="/components/navbar.jsp" />
     <div class="containter d-flex flex-column justify-content-center align-items-center fill-height">
         <img src="${pageContext.request.contextPath}/images/tick.png" class="img-fluid">
-        <p>Sign Up was Success, Sign In</p>
+        <p>Account Creation was Success, Sign In</p>
     </div>
   </body>
 </html>

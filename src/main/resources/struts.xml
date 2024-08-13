@@ -27,30 +27,48 @@
     <action name="signupForm">
       <result>/pages/signup.jsp</result>
     </action>
-    <action name="signup" class="com.cibus.controllers.SignUpAction">
+
+    <action 
+      class="com.cibus.controllers.SignUpAction" 
+      name="signup">
       <result name="input">/pages/signup.jsp</result>
-      <result name="success">/pages/success.jsp</result>
+      <result name="success">/pages/created.jsp</result>
     </action>
 
     <action name="signinForm">
       <result>/pages/signin.jsp</result>
     </action>
-    <action name="signin" class="com.cibus.controllers.SignInAction">
-      <result name="success" type="redirect">dashboard</result>
+
+    <action 
+      class="com.cibus.controllers.SignInAction" 
+      name="signin">
+      <result name="success" type="redirect">index</result>
       <result name="input">/pages/signin.jsp</result>
     </action>
 
-    <action name="dashboard" class="com.cibus.controllers.DashboardAction">
+    <action 
+      class="com.cibus.controllers.SignOutAction" 
+      name="signout">
+      <result name="success" type="redirect">index</result>
+    </action>
+
+    <action 
+      class="com.cibus.controllers.DashboardAction"
+      name="dashboard">
       <result name="owner" type="redirect">owner</result>
       <result name="user" type="redirect">user</result>
     </action>
 
-    <action name="user" class="com.cibus.controllers.UserAction">
-      <result>/pages/user.jsp</result>
+    <action 
+      class="com.cibus.controllers.UserAction"
+      name="user">
+      <result>/pages/user/dashboard.jsp</result>
     </action>
 
-    <action name="owner" class="com.cibus.controllers.OwnerAction">
-      <result>/pages/owner.jsp</result>
+    <action 
+      class="com.cibus.controllers.OwnerAction"
+      name="owner">
+      <result>/pages/owner/dashboard.jsp</result>
     </action>
   </package>
 </struts>
