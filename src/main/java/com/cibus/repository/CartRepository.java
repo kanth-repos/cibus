@@ -3,6 +3,7 @@ package com.cibus.repository;
 import com.cibus.interfaces.repository.ICartRepository;
 import com.cibus.common.dtos.CartDto;
 import com.cibus.common.models.CartModel;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -14,13 +15,16 @@ public class CartRepository implements ICartRepository {
   private Connection connection;
 
   @Override
-  public void addCart(CartDto cart) throws Exception {
+  public CartModel addCart(CartDto cart) throws Exception {
     final String query = "INSERT INTO carts (user_id, food_id, quantity) VALUES (?, ?, ?)";
     try(var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, cart.getUserId());
       stmt.setLong(2, cart.getFoodId());
       stmt.setInt(3, cart.getQuantity());
       stmt.executeUpdate();
+      var model = new CartModel(cart.getUserId(), cart.getFoodId());
+      model.setQuantity(cart.getQuantity());
+      return model;
     }
   }
 
@@ -64,10 +68,15 @@ public class CartRepository implements ICartRepository {
 
   @Override
   public void deleteCart(CartModel cart) throws Exception {
+    this.deleteCart(cart.getUserId(), cart.getFoodId());
+  }
+
+  @Override
+  public void deleteCart(long userId, long foodId) throws Exception {
     final String query = "DELETE FROM carts where user_id = ? AND food_id = ?";
     try(var stmt = connection.prepareStatement(query)) {
-      stmt.setLong(1, cart.getUserId());
-      stmt.setLong(2, cart.getFoodId());
+      stmt.setLong(1, userId);
+      stmt.setLong(2, foodId);
       stmt.executeUpdate();
     }
   }

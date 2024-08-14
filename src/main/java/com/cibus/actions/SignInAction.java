@@ -1,4 +1,4 @@
-package com.cibus.controllers;
+package com.cibus.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 

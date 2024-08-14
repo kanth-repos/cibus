@@ -23,10 +23,16 @@ public class OrderModel implements Serializable {
     return id;
   }
 
-  public OrderModel(long id, long userId, long foodId) {
-    this.id = id;
+  public void setUserId(long userId) {
     this.userId = userId;
+  }
+
+  public void setFoodId(long foodId) {
     this.foodId = foodId;
+  }
+
+  public OrderModel(long id) {
+    this.id = id;
   }
 
   // Model attributes for Order

@@ -1,6 +1,7 @@
 package com.cibus.repository;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import com.cibus.common.dtos.UserDto;
 import com.cibus.common.models.UserModel;
@@ -73,7 +74,7 @@ public class UserRepository implements IUserRepository {
   }
 
   @Override
-  public void addUser(UserDto user) throws Exception {
+  public UserModel addUser(UserDto user) throws Exception {
     final var query = "INSERT INTO users (type, name, mobile, email, password) VALUES (?, ?, ?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, user.getType());
@@ -82,14 +83,37 @@ public class UserRepository implements IUserRepository {
       stmt.setString(4, user.getEmail());
       stmt.setString(5, user.getPassword());
       stmt.executeUpdate();
+
+      UserModel model = null;
+
+      try (var generatedKeys = stmt.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          model = new UserModel(generatedKeys.getLong(1));
+        } else {
+          throw new SQLException("Can't get Primary Key");
+        }
+      }
+
+      model.setPassword(user.getPassword());
+      model.setType(user.getType());
+      model.setName(user.getName());
+      model.setMobile(user.getMobile());
+      model.setEmail(user.getEmail());
+
+      return model;
     }
   }
 
   @Override
   public void deleteUser(UserModel user) throws Exception {
+    this.deleteUser(user.getId());
+  }
+
+  @Override
+  public void deleteUser(long id) throws Exception {
     final var query = "DELETE FROM users WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
-      stmt.setLong(1, user.getId());
+      stmt.setLong(1, id);
       stmt.executeUpdate();
     }
   }

@@ -27,6 +27,10 @@ public class HotelModel implements Serializable {
     return city; 
   }
 
+  public void setOwnerId(long id) {
+    this.ownerId = id;
+  }
+
   public HotelModel(long id) {
     this.id = id;
   }

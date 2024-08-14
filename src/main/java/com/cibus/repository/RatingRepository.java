@@ -15,7 +15,7 @@ public class RatingRepository implements IRatingRepository {
   private Connection connection;
 
   @Override
-  public void addRating(RatingDto rating) throws Exception {
+  public RatingModel addRating(RatingDto rating) throws Exception {
     final var query = "INSERT INTO ratings (user_id, food_id, rating, message) VALUES (?, ?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, rating.getUserId());
@@ -23,6 +23,10 @@ public class RatingRepository implements IRatingRepository {
       stmt.setInt(3, rating.getRating());
       stmt.setString(4, rating.getMessage());
       stmt.executeUpdate();
+      var model = new RatingModel(rating.getUserId(), rating.getUserId());
+      model.setRating(rating.getRating());
+      model.setMessage(rating.getMessage());
+      return model;
     }
   }
 
@@ -60,10 +64,15 @@ public class RatingRepository implements IRatingRepository {
 
   @Override
   public void deleteRating(RatingModel rating) throws Exception {
+    this.deleteRating(rating.getUserId(), rating.getFoodId());
+  }
+
+  @Override
+  public void deleteRating(long userId, long foodId) throws Exception {
     final var query = "DELETE FROM ratings WHERE user_id = ? AND food_id = ?";
     try (var stmt = connection.prepareStatement(query)) {
-      stmt.setLong(1, rating.getUserId());
-      stmt.setLong(2, rating.getFoodId());
+      stmt.setLong(1, userId);
+      stmt.setLong(2, foodId);
       stmt.executeUpdate();
     }
   }

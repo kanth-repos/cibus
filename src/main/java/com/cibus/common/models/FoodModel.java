@@ -27,9 +27,12 @@ public class FoodModel implements Serializable {
     return price; 
   }
 
-  public FoodModel(long id, long hotelId) {
-    this.id = id;
+  public void setHotelId(long hotelId) {
     this.hotelId = hotelId;
+  }
+
+  public FoodModel(long id) {
+    this.id = id;
   }
 
   // Model attributes for Food

@@ -28,16 +28,6 @@ CREATE TABLE IF NOT EXISTS foods (
   FOREIGN KEY (hotel_id) REFERENCES hotels(id)
 );
 
--- create cart table
-CREATE TABLE IF NOT EXISTS carts (
-  user_id BIGINT NOT NULL,
-  food_id BIGINT NOT NULL,
-  quantity int NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id),
-  PRIMARY KEY (user_id, food_id)
-);
-
 -- create order table
 CREATE TABLE IF NOT EXISTS orders (
   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -48,6 +38,16 @@ CREATE TABLE IF NOT EXISTS orders (
   FOREIGN KEY (food_id) REFERENCES foods(id)
 );
 
+-- create cart table
+CREATE TABLE IF NOT EXISTS carts (
+  user_id BIGINT NOT NULL,
+  food_id BIGINT NOT NULL,
+  quantity int NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (food_id) REFERENCES foods(id),
+  PRIMARY KEY (user_id, food_id)
+);
+
 -- create rating table
 CREATE TABLE IF NOT EXISTS ratings (
   user_id BIGINT NOT NULL,
@@ -55,5 +55,6 @@ CREATE TABLE IF NOT EXISTS ratings (
   rating int NOT NULL,
   message varchar(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id)
+  FOREIGN KEY (food_id) REFERENCES foods(id),
+  PRIMARY KEY (user_id, food_id)
 );

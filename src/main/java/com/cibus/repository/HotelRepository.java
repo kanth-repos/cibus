@@ -1,6 +1,7 @@
 package com.cibus.repository;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.cibus.common.dtos.HotelDto;
@@ -15,13 +16,28 @@ public class HotelRepository implements IHotelRepository {
   private Connection connection;
 
   @Override
-  public void addHotel(HotelDto hotel) throws Exception {
+  public HotelModel addHotel(HotelDto hotel) throws Exception {
     final var query = "INSERT INTO hotels (name, city, owner_id) VALUES (?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, hotel.getName());
       stmt.setString(2, hotel.getCity());
       stmt.setLong(3, hotel.getOwnerId());
       stmt.executeUpdate();
+      
+      HotelModel model = null;
+
+      try (var generatedKeys = stmt.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          model = new HotelModel(generatedKeys.getLong(1));
+        } else {
+          throw new SQLException("Can't get Primary Key");
+        }
+      }
+
+      model.setOwnerId(hotel.getOwnerId());
+      model.setName(hotel.getName());
+      model.setCity(hotel.getCity());
+      return model;
     }
   }
 
@@ -37,6 +53,7 @@ public class HotelRepository implements IHotelRepository {
         var hotel = new HotelModel(hotelId);
         hotel.setName(rs.getString(2));
         hotel.setCity(rs.getString(3));
+        hotel.setOwnerId(rs.getLong(4));
         hotels.add(hotel);
       }
 
@@ -56,6 +73,7 @@ public class HotelRepository implements IHotelRepository {
         var hotel = new HotelModel(hotelId);
         hotel.setName(rs.getString(2));
         hotel.setCity(rs.getString(3));
+        hotel.setOwnerId(rs.getLong(4));
         hotels.add(hotel);
       }
 
@@ -65,20 +83,26 @@ public class HotelRepository implements IHotelRepository {
 
   @Override
   public void updateHotel(HotelModel hotel) throws Exception {
-    final var query = "UPDATE hotels SET name = ?, city = ? WHERE id = ?";
+    final var query = "UPDATE hotels SET name = ?, city = ?, owner_id = ?, WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, hotel.getName());
       stmt.setString(2, hotel.getCity());
       stmt.setLong(3, hotel.getId());
+      stmt.setLong(4, hotel.getOwnerId());
       stmt.executeUpdate();
     }
   }
 
   @Override
   public void deleteHotel(HotelModel hotel) throws Exception {
+    this.deleteHotel(hotel.getId());
+  }
+
+  @Override
+  public void deleteHotel(long id) throws Exception {
     final var query = "DELETE FROM hotels WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
-      stmt.setLong(1, hotel.getId());
+      stmt.setLong(1, id);
       stmt.executeUpdate();
     }
   }

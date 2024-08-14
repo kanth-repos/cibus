@@ -1,6 +1,7 @@
 package com.cibus.repository;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.cibus.common.dtos.OrderDto;
@@ -15,13 +16,28 @@ public class OrderRepository implements IOrderRepository {
   private Connection connection;
 
   @Override
-  public void addOrder(OrderDto order) throws Exception {
+  public OrderModel addOrder(OrderDto order) throws Exception {
     final var query = "INSERT INTO orders (user_id, food_id, quantity) VALUES (?, ?, ?)";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, order.getUserId());
       stmt.setLong(2, order.getFoodId());
       stmt.setInt(3, order.getQuantity());
       stmt.executeUpdate();
+
+      OrderModel model = null;
+
+      try (var generatedKeys = stmt.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          model = new OrderModel(generatedKeys.getLong(1));
+        } else {
+          throw new SQLException("Can't get Primary Key");
+        }
+      }
+
+      model.setQuantity(order.getQuantity());
+      model.setUserId(order.getUserId());
+      model.setFoodId(order.getFoodId());
+      return model;
     }
   }
 
@@ -37,7 +53,9 @@ public class OrderRepository implements IOrderRepository {
         var orderId = rs.getLong(1);
         var userId = rs.getLong(2);
         var foodId = rs.getLong(3);
-        var order = new OrderModel(orderId, userId, foodId);
+        var order = new OrderModel(orderId);
+        order.setUserId(userId);
+        order.setFoodId(foodId);
         order.setQuantity(rs.getInt(4));
         orders.add(order);
       }
@@ -48,19 +66,26 @@ public class OrderRepository implements IOrderRepository {
 
   @Override
   public void updateOrder(OrderModel order) throws Exception {
-    final var query = "UPDATE orders SET quantity = ? WHERE id = ?";
+    final var query = "UPDATE orders SET quantity = ?, user_id = ?, food_id = ? WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setInt(1, order.getQuantity());
-      stmt.setLong(2, order.getId());
+      stmt.setLong(2, order.getUserId());
+      stmt.setLong(3, order.getFoodId());
+      stmt.setLong(4, order.getId());
       stmt.executeUpdate();
     }
   }
 
   @Override
   public void deleteOrder(OrderModel order) throws Exception {
+    this.deleteOrder(order.getId());
+  }
+
+  @Override
+  public void deleteOrder(long id) throws Exception {
     final var query = "DELETE FROM orders WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
-      stmt.setLong(1, order.getId());
+      stmt.setLong(1, id);
       stmt.executeUpdate();
     }
   }
