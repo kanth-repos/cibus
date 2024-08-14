@@ -7,7 +7,7 @@ body {
 }
 
 .fill-height {
-  min-height: calc(100% - 80px);
+  min-height: calc(100% - 100px);
 }
 
 .pane {
@@ -17,6 +17,17 @@ body {
 }
 
 .hotel {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+  color: inherit !important;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 300px;
+  height: 250px;
+
   margin-top: 15px;
   padding: 10px;
   box-shadow: 0px 0px 34px -14px rgba(0,0,0,0.13),
@@ -24,17 +35,39 @@ body {
   border-radius: 10px;
 }
 
-.hotel a {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: inherit;
+.hotel .image {
+  max-height: 180px;
+  max-width: 280px;
 }
 
-.hotel a .name {
+.hotel .name {
   font-weight: 700;
 }
 
-.hotel a .city {
+.hotel .city {
   font-weight: 300;
+}
+
+.float-btn-right {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+  cursor: pointer;
+
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+
+  background-color: #0d6efd;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);
+}
+
+.float-btn-right:hover {
+  color: white;
 }

@@ -1,6 +1,8 @@
 package com.cibus.common.dtos;
 
-public class CartDto {
+import java.io.Serializable;
+
+public class CartDto implements Serializable {
   // Java Bean for Cart
   public void setUserId(long userId) { 
     this.userId = userId; 

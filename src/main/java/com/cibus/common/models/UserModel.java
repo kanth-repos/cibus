@@ -1,8 +1,10 @@
 package com.cibus.common.models;
 
+import java.io.Serializable;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-public class UserModel {
+public class UserModel implements Serializable {
   public boolean verifyPassword(String pass) {
     return BCrypt.verifyer().verify(pass.toCharArray(), this.getPassword()).verified;
   }

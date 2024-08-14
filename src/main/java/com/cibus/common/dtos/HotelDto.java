@@ -1,6 +1,8 @@
 package com.cibus.common.dtos;
 
-public class HotelDto {
+import java.io.Serializable;
+
+public class HotelDto implements Serializable {
   // Java Bean for Hotel
   public void setOwnerId(long ownerId) { 
     this.ownerId = ownerId; 

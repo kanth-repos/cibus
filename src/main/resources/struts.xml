@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
+  <constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.PrefixBasedActionMapper" />
+  <constant name="struts.action.extension" value="xhtml,xml,json,action"/>
+  <constant name="struts.mapper.prefixMapping" value="/rest:rest,:struts"/>
+  <constant name="struts.actionProxyFactory" value="prefix"/>
+  <constant name="struts.convention.action.suffix" value="Controller"/>
+  <constant name="struts.convention.action.mapAllMatches" value="true"/>
+  <constant name="struts.convention.default.parent.package" value="rest-default"/>
+  <constant name="struts.convention.package.locators" value="example"/>
+  
   <constant name="struts.devMode" value="true" />
 
   <package name="cibus" extends="struts-default">
@@ -19,7 +28,7 @@
     <default-interceptor-ref name="defaultWithauthStack" />
 
     <global-results>
-      <result name="signin">/pages/signin.jsp</result>
+      <result name="signin" type="redirect">signinForm</result>
     </global-results>
 
     <action name="index"><result>/index.jsp</result></action>
@@ -69,6 +78,17 @@
       class="com.cibus.controllers.OwnerAction"
       name="owner">
       <result>/pages/owner/dashboard.jsp</result>
+    </action>
+
+    <action name="createHotelForm">
+      <result>/pages/owner/createhotel.jsp</result>
+    </action>
+
+    <action 
+      class="com.cibus.controllers.CreateHotelAction"
+      name="createHotel">
+      <result name="success" type="redirect">dashboard</result>
+      <result name="input">/pages/owner/createhotel.jsp</result>
     </action>
   </package>
 </struts>

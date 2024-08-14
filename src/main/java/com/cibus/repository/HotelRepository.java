@@ -45,7 +45,7 @@ public class HotelRepository implements IHotelRepository {
   }
 
   @Override
-  public ArrayList<HotelModel> getHotels() throws Exception {
+  public ArrayList<HotelModel> getAllHotels() throws Exception {
     final var query = "SELECT * FROM hotels";
     try (var stmt = connection.createStatement()) {
       var hotels = new ArrayList<HotelModel>();

@@ -12,16 +12,15 @@ uri="/struts-tags" %>
   </head>
   <body>
     <jsp:include page="/components/navbar.jsp" />
-    <div class="containter d-flex flex-column align-items-center mx-5">
+    <div
+      class="containter d-flex flex-row justify-content-center align-items-center gap-4 flex-wrap mx-5"
+    >
       <s:iterator value="%{hotels}" status="it">
-        <div class="row w-75 hotel">
-          <div class="col">
-            <a href="">
-              <div class="name"><s:property value="name" /></div>
-              <div class="city"><s:property value="city" /></div>
-            </a>
-          </div>
-        </div>
+        <a href="" class="hotel">
+          <img src="${pageContext.request.contextPath}/images/restaurant.png" class="img-fluid image" />
+          <div class="name"><s:property value="name" /></div>
+          <div class="city"><s:property value="city" /></div>
+        </a>
       </s:iterator>
     </div>
   </body>

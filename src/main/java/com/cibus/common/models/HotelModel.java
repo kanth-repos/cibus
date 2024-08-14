@@ -1,6 +1,8 @@
 package com.cibus.common.models;
 
-public class HotelModel {
+import java.io.Serializable;
+
+public class HotelModel implements Serializable {
   public void setName(String name) { 
     this.name = name; 
   }

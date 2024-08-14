@@ -1,6 +1,8 @@
 package com.cibus.common.models;
 
-public class RatingModel {
+import java.io.Serializable;
+
+public class RatingModel implements Serializable {
   public void setRating(int rating) { 
     this.rating = rating; 
   }

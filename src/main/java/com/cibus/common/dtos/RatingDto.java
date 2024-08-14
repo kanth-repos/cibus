@@ -1,6 +1,8 @@
 package com.cibus.common.dtos;
 
-public class RatingDto {
+import java.io.Serializable;
+
+public class RatingDto implements Serializable {
   // Java Bean for Rating
   public void setUserId(long userId) { 
     this.userId = userId; 

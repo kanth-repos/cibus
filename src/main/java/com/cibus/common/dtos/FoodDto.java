@@ -1,6 +1,8 @@
 package com.cibus.common.dtos;
 
-public class FoodDto {
+import java.io.Serializable;
+
+public class FoodDto implements Serializable {
   // Java Bean for Food
   public void setHotelId(long hotelId) { 
     this.hotelId = hotelId; 

@@ -1,6 +1,8 @@
 package com.cibus.common.dtos;
 
-public class OrderDto {
+import java.io.Serializable;
+
+public class OrderDto implements Serializable {
   // Java Bean for Order
   public void setUserId(long userId) { 
     this.userId = userId; 

@@ -1,6 +1,8 @@
 package com.cibus.common.models;
 
-public class OrderModel {
+import java.io.Serializable;
+
+public class OrderModel implements Serializable {
   public void setQuantity(int quantity) { 
     this.quantity = quantity; 
   }

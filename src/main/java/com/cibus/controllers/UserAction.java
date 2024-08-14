@@ -13,18 +13,7 @@ public class UserAction extends ActionSupport {
   private ArrayList<HotelModel> hotels;
 
   public void setHotels(ArrayList<HotelModel> hotels) {
-    var list = new ArrayList<HotelModel>();
-    var hotel = new HotelModel(1);
-    hotel.setName("Hotel");
-    hotel.setCity("Chennai");
-    list.add(hotel);
-    list.add(hotel);
-    list.add(hotel);
-    list.add(hotel);
-    list.add(hotel);
-    list.add(hotel);
-    list.add(hotel);
-    this.hotels = list;
+    this.hotels = hotels;
   }
 
   public ArrayList<HotelModel> getHotels() {
@@ -35,7 +24,7 @@ public class UserAction extends ActionSupport {
   public String execute() throws Exception {
     final var connection = Database.getConnection();
     final var repo = new HotelRepository(connection);
-    this.setHotels(repo.getHotels());
+    this.setHotels(repo.getAllHotels());
     return SUCCESS;
   }
 }
