@@ -1,7 +1,7 @@
 package com.cibus.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.cibus.common.dtos.UserDto;
+import com.cibus.dtos.UserDto;
 import com.cibus.database.Database;
 import com.cibus.repository.UserRepository;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ public class SignUpAction extends ActionSupport {
   @Override
   public void validate() {
     final var allowedTypes = Arrays.asList("owner", "user");
-    
+
     if (user == null) {
       addActionError("User is required");
       return;

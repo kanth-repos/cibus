@@ -1,7 +1,7 @@
 package com.cibus.actions;
 
-import com.cibus.common.models.UserModel;
 import com.cibus.constants.Constants;
+import com.cibus.models.UserModel;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.action.SessionAware;
 

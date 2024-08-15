@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.cibus.common.dtos.HotelDto;
-import com.cibus.common.models.HotelModel;
+import com.cibus.dtos.HotelDto;
 import com.cibus.interfaces.repository.IHotelRepository;
+import com.cibus.models.HotelModel;
 
 public class HotelRepository implements IHotelRepository {
   public HotelRepository(Connection connection) {
@@ -23,7 +23,7 @@ public class HotelRepository implements IHotelRepository {
       stmt.setString(2, hotel.getCity());
       stmt.setLong(3, hotel.getOwnerId());
       stmt.executeUpdate();
-      
+
       HotelModel model = null;
 
       try (var generatedKeys = stmt.getGeneratedKeys()) {

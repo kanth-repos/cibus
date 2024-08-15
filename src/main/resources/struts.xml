@@ -20,9 +20,9 @@
 
   <package name="default" namespace="/" extends="struts-default">
     <interceptors>
-      <interceptor 
-        class="com.cibus.intercept.AuthInterceptor" 
-        name="requiresAuth" 
+      <interceptor
+        class="com.cibus.intercept.AuthInterceptor"
+        name="requiresAuth"
       />
 
       <interceptor-stack name="authStack">
@@ -45,8 +45,8 @@
       <result>/pages/signup.jsp</result>
     </action>
 
-    <action 
-      class="com.cibus.actions.SignUpAction" 
+    <action
+      class="com.cibus.actions.SignUpAction"
       name="signup">
       <interceptor-ref name="defaultStack"/>
       <result name="input">/pages/signup.jsp</result>
@@ -58,22 +58,22 @@
       <result>/pages/signin.jsp</result>
     </action>
 
-    <action 
-      class="com.cibus.actions.SignInAction" 
+    <action
+      class="com.cibus.actions.SignInAction"
       name="signin">
       <interceptor-ref name="defaultStack"/>
       <result name="success" type="redirect">index</result>
       <result name="input">/pages/signin.jsp</result>
     </action>
 
-    <action 
-      class="com.cibus.actions.SignOutAction" 
+    <action
+      class="com.cibus.actions.SignOutAction"
       name="signout">
       <interceptor-ref name="authStack"/>
       <result name="success" type="redirect">index</result>
     </action>
 
-    <action 
+    <action
       class="com.cibus.actions.DashboardAction"
       name="dashboard">
       <interceptor-ref name="authStack"/>
@@ -84,9 +84,9 @@
 
   <package name="api" namespace="/api" extends="rest-default">
     <interceptors>
-      <interceptor 
-        class="com.cibus.intercept.AuthInterceptor" 
-        name="requiresAuth" 
+      <interceptor
+        class="com.cibus.intercept.AuthInterceptor"
+        name="requiresAuth"
       />
 
       <interceptor-stack name="authStack">
@@ -99,9 +99,33 @@
       <result name="signin" type="redirect">signinForm</result>
     </global-results>
 
-    <action 
+    <action
+      class="com.cibus.controllers.CartsController"
+      name="carts/*">
+      <interceptor-ref name="authStack"/>
+    </action>
+
+    <action
+      class="com.cibus.controllers.FoodsController"
+      name="foods/*">
+      <interceptor-ref name="authStack"/>
+    </action>
+
+    <action
       class="com.cibus.controllers.HotelsController"
       name="hotels/*">
+      <interceptor-ref name="authStack"/>
+    </action>
+
+    <action
+      class="com.cibus.controllers.OrdersController"
+      name="orders/*">
+      <interceptor-ref name="authStack"/>
+    </action>
+
+    <action
+      class="com.cibus.controllers.UsersController"
+      name="users/*">
       <interceptor-ref name="authStack"/>
     </action>
   </package>

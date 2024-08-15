@@ -3,10 +3,9 @@ package com.cibus.repository;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.cibus.common.dtos.OrderDto;
-import com.cibus.common.models.OrderModel;
+import com.cibus.dtos.OrderDto;
 import com.cibus.interfaces.repository.IOrderRepository;
+import com.cibus.models.OrderModel;
 
 public class OrderRepository implements IOrderRepository {
   public OrderRepository(Connection connection) {
@@ -14,6 +13,28 @@ public class OrderRepository implements IOrderRepository {
   }
 
   private Connection connection;
+
+  @Override
+  public ArrayList<OrderModel> getOrdersByHotelId(long hotelId) throws Exception {
+    final var query = "SELECT * FROM orders JOIN foods ON orders.food_id = foods.id WHERE foods.hotel_id = " + hotelId;
+    try (var stmt = connection.createStatement()) {
+      var orders = new ArrayList<OrderModel>();
+      var rs = stmt.executeQuery(query);
+
+      while(rs.next()) {
+        var orderId = rs.getLong(1);
+        var userId = rs.getLong(2);
+        var foodId = rs.getLong(3);
+        var order = new OrderModel(orderId);
+        order.setUserId(userId);
+        order.setFoodId(foodId);
+        order.setQuantity(rs.getInt(4));
+        orders.add(order);
+      }
+
+      return orders;
+    }
+  }
 
   @Override
   public OrderModel addOrder(OrderDto order) throws Exception {

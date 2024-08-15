@@ -1,8 +1,8 @@
 package com.cibus.repository;
 
 import com.cibus.interfaces.repository.IFoodRepository;
-import com.cibus.common.dtos.FoodDto;
-import com.cibus.common.models.FoodModel;
+import com.cibus.models.FoodModel;
+import com.cibus.dtos.FoodDto;
 
 import java.sql.Connection;
 import java.sql.SQLException;

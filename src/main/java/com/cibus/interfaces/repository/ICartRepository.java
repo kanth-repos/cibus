@@ -1,7 +1,8 @@
 package com.cibus.interfaces.repository;
 
-import com.cibus.common.dtos.CartDto;
-import com.cibus.common.models.CartModel;
+import com.cibus.dtos.CartDto;
+import com.cibus.models.CartModel;
+
 import java.util.ArrayList;
 
 public interface ICartRepository {
@@ -11,5 +12,5 @@ public interface ICartRepository {
   CartModel addCart(CartDto cart) throws Exception;
   void updateCart(CartModel cart) throws Exception;
   void deleteCart(CartModel cart) throws Exception;
-  void deleteCart(long userId, long foodId) throws Exception;
+  void deleteCart(long id) throws Exception;
 }

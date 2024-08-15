@@ -2,8 +2,8 @@ package com.cibus.interfaces.repository;
 
 import java.util.ArrayList;
 
-import com.cibus.common.dtos.HotelDto;
-import com.cibus.common.models.HotelModel;
+import com.cibus.dtos.HotelDto;
+import com.cibus.models.HotelModel;
 
 public interface IHotelRepository {
   ArrayList<HotelModel> getHotelsByOwnerId(long ownerId) throws Exception;

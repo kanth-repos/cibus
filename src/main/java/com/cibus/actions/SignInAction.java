@@ -6,10 +6,10 @@ import java.util.Map;
 
 import org.apache.struts2.action.SessionAware;
 
-import com.cibus.common.models.UserModel;
 import com.cibus.constants.Constants;
 import com.cibus.database.Database;
 import com.cibus.exceptions.UserNotFoundException;
+import com.cibus.models.UserModel;
 import com.cibus.repository.UserRepository;
 
 public class SignInAction extends ActionSupport implements SessionAware {

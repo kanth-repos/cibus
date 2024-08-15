@@ -40,21 +40,21 @@ CREATE TABLE IF NOT EXISTS orders (
 
 -- create cart table
 CREATE TABLE IF NOT EXISTS carts (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id BIGINT NOT NULL,
   food_id BIGINT NOT NULL,
   quantity int NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id),
-  PRIMARY KEY (user_id, food_id)
+  FOREIGN KEY (food_id) REFERENCES foods(id)
 );
 
 -- create rating table
 CREATE TABLE IF NOT EXISTS ratings (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id BIGINT NOT NULL,
   food_id BIGINT NOT NULL,
   rating int NOT NULL,
   message varchar(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id),
-  PRIMARY KEY (user_id, food_id)
+  FOREIGN KEY (food_id) REFERENCES foods(id)
 );

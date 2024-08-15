@@ -3,10 +3,10 @@ package com.cibus.repository;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.cibus.common.dtos.UserDto;
-import com.cibus.common.models.UserModel;
+import com.cibus.dtos.UserDto;
 import com.cibus.exceptions.UserNotFoundException;
 import com.cibus.interfaces.repository.IUserRepository;
+import com.cibus.models.UserModel;
 
 public class UserRepository implements IUserRepository {
   public UserRepository(Connection connection) {
@@ -115,6 +115,69 @@ public class UserRepository implements IUserRepository {
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, id);
       stmt.executeUpdate();
+    }
+  }
+
+  @Override
+  public boolean isOwnerOfFood(long userId, long foodId) throws Exception {
+    final var query = "SELECT hotel_id FROM foods WHERE id = ?";
+    try (var stmt = connection.prepareStatement(query)) {
+      stmt.setLong(1, foodId);
+      var rs = stmt.executeQuery();
+
+      if(!rs.next()) {
+        return false;
+      }
+
+      return isOwnerOfHotel(userId, rs.getLong(1));
+    }
+  }
+
+  @Override
+  public boolean isOwnerOfHotel(long userId, long hotelId) throws Exception {
+    final var query = "SELECT * FROM hotels WHERE id = ? AND owner_id = ?";
+    try (var stmt = connection.prepareStatement(query)) {
+      stmt.setLong(1, hotelId);
+      stmt.setLong(2, userId);
+
+      var rs = stmt.executeQuery();
+      return rs.next();
+    }
+  }
+
+  @Override
+  public boolean isOwnerOfOrder(long userId, long orderId) throws Exception {
+    final var query = "SELECT * FROM orders WHERE id = ? AND user_id = ?";
+    try (var stmt = connection.prepareStatement(query)) {
+      stmt.setLong(1, orderId);
+      stmt.setLong(2, userId);
+
+      var rs = stmt.executeQuery();
+      return rs.next();
+    }
+  }
+
+  @Override
+  public boolean isOwnerOfRating(long userId, long ratingId) throws Exception {
+    final var query = "SELECT * FROM ratings WHERE id = ? AND user_id = ?";
+    try (var stmt = connection.prepareStatement(query)) {
+      stmt.setLong(1, ratingId);
+      stmt.setLong(2, userId);
+
+      var rs = stmt.executeQuery();
+      return rs.next();
+    }
+  }
+
+  @Override
+  public boolean isOwnerOfCart(long userId, long cartId) throws Exception {
+    final var query = "SELECT * FROM carts WHERE id = ? AND user_id = ?";
+    try (var stmt = connection.prepareStatement(query)) {
+      stmt.setLong(1, cartId);
+      stmt.setLong(2, userId);
+
+      var rs = stmt.executeQuery();
+      return rs.next();
     }
   }
 }
