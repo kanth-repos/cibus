@@ -96,7 +96,10 @@
     </interceptors>
 
     <global-results>
-      <result name="signin" type="redirect">signinForm</result>
+      <result name="signin" type="httpheader">
+        <param name="status">400</param>
+        <param name="error">Unauthorized</param>
+      </result>
     </global-results>
 
     <action
