@@ -6,7 +6,7 @@ import com.cibus.database.Database;
 import com.cibus.repository.UserRepository;
 import java.util.Arrays;
 
-public class SignUpAction extends ActionSupport {
+public class SignUpController extends ActionSupport {
   @Override
   public void validate() {
     final var allowedTypes = Arrays.asList("owner", "user");
@@ -16,19 +16,19 @@ public class SignUpAction extends ActionSupport {
       return;
     }
 
-    if(user.getPassword() == null || user.getPassword().isEmpty()) {
+    if (user.getPassword() == null || user.getPassword().isEmpty()) {
       addFieldError("user.password", "Password is required");
     }
 
-    if(user.getName() == null || user.getName().isEmpty()) {
+    if (user.getName() == null || user.getName().isEmpty()) {
       addFieldError("user.username", "Username is required");
     }
 
-    if(!allowedTypes.contains(user.getType().toLowerCase())) {
+    if (!allowedTypes.contains(user.getType().toLowerCase())) {
       addFieldError("user.type", "Type is required");
     }
 
-    if(user.getEmail() == null || user.getEmail().isEmpty()) {
+    if (user.getEmail() == null || user.getEmail().isEmpty()) {
       addFieldError("user.email", "Email is required");
     }
   }
@@ -45,9 +45,10 @@ public class SignUpAction extends ActionSupport {
 
   @Override
   public String execute() throws Exception {
-    final var connection = Database.getConnection();
-    final var repo = new UserRepository(connection);
-    repo.addUser(user);
-    return SUCCESS;
+    try (var connection = Database.getConnection()) {
+      final var repo = new UserRepository(connection);
+      repo.addUser(user);
+      return SUCCESS;
+    }
   }
 }

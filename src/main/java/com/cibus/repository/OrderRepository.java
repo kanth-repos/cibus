@@ -2,6 +2,7 @@ package com.cibus.repository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import com.cibus.dtos.OrderDto;
 import com.cibus.interfaces.repository.IOrderRepository;
@@ -39,7 +40,7 @@ public class OrderRepository implements IOrderRepository {
   @Override
   public OrderModel addOrder(OrderDto order) throws Exception {
     final var query = "INSERT INTO orders (user_id, food_id, quantity) VALUES (?, ?, ?)";
-    try (var stmt = connection.prepareStatement(query)) {
+    try (var stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
       stmt.setLong(1, order.getUserId());
       stmt.setLong(2, order.getFoodId());
       stmt.setInt(3, order.getQuantity());

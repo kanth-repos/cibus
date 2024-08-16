@@ -25,17 +25,29 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
   private Long userId;
   private Long id;
 
-  public void setHotelId(long hotelId) { this.hotelId = hotelId; }
+  public void setHotelId(long hotelId) {
+    this.hotelId = hotelId;
+  }
 
-  public Long getHotelId() { return hotelId; }
+  public Long getHotelId() {
+    return hotelId;
+  }
 
-  public void setUserId(long userId) { this.userId = userId; }
+  public void setUserId(long userId) {
+    this.userId = userId;
+  }
 
-  public Long getUserId() { return userId; }
+  public Long getUserId() {
+    return userId;
+  }
 
-  public void setId(long id) { this.id = id; }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-  public Long getId() { return id; }
+  public Long getId() {
+    return id;
+  }
 
   @Override
   public void withSession(Map<String, Object> session) {
@@ -57,68 +69,74 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
    * GET /orders?userId=userId?hotelId=hotelId
    */
   public HttpHeaders index() throws Exception {
-    final var orderRepo = new OrderRepository(Database.getConnection());
-    final var userRepo = new UserRepository(Database.getConnection());
-    final var user = (UserModel)session.get(Constants.USER_SESSION);
+    try (var connection = Database.getConnection()) {
+      final var orderRepo = new OrderRepository(connection);
+      final var userRepo = new UserRepository(connection);
+      final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-    if (getHotelId() == null && getUserId() == null ||
-        getHotelId() != null && getUserId() != null) {
-      return new DefaultHttpHeaders("index").withStatus(400);
+      if (getHotelId() == null && getUserId() == null ||
+          getHotelId() != null && getUserId() != null) {
+        return new DefaultHttpHeaders("index").withStatus(400);
+      }
+
+      if (getHotelId() != null && !userRepo.isOwnerOfHotel(user.getId(), getHotelId())) {
+        return new DefaultHttpHeaders("index").withStatus(401);
+      }
+
+      if (getHotelId() != null) {
+        orders = orderRepo.getOrdersByHotelId(getHotelId());
+      }
+
+      if (getUserId() != null && user.getId() != getUserId()) {
+        return new DefaultHttpHeaders("index").withStatus(401);
+      }
+
+      if (getUserId() != null) {
+        orders = orderRepo.getOrdersByUserId(getUserId());
+      }
+
+      return new DefaultHttpHeaders("index");
     }
-
-    if (getHotelId() != null && !userRepo.isOwnerOfHotel(user.getId(), getHotelId())) {
-      return new DefaultHttpHeaders("index").withStatus(401);
-    }
-
-    if (getHotelId() != null) {
-      orders = orderRepo.getOrdersByHotelId(getHotelId());
-    }
-
-    if (getUserId() != null && user.getId() != getUserId()) {
-      return new DefaultHttpHeaders("index").withStatus(401);
-    }
-
-    if (getUserId() != null) {
-      orders = orderRepo.getOrdersByUserId(getUserId());
-    }
-
-    return new DefaultHttpHeaders("index");
   }
 
   /**
    * POST /orders
    */
   public HttpHeaders create() throws Exception {
-    final var orderRepo = new OrderRepository(Database.getConnection());
-    final var user = (UserModel)session.get(Constants.USER_SESSION);
+    try (var connection = Database.getConnection()) {
+      final var orderRepo = new OrderRepository(connection);
+      final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-    if (user.getId() != dto.getUserId()) {
-      return new DefaultHttpHeaders("create").withStatus(401);
+      if (user.getId() != dto.getUserId()) {
+        return new DefaultHttpHeaders("create").withStatus(401);
+      }
+
+      dto.setUserId(user.getId());
+      orderRepo.addOrder(dto);
+      return new DefaultHttpHeaders("create");
     }
-
-    dto.setUserId(user.getId());
-    orderRepo.addOrder(dto);
-    return new DefaultHttpHeaders("create");
   }
 
   /**
    * DELETE /orders/{id}
    */
   public HttpHeaders destroy() throws Exception {
-    final var orderRepo = new OrderRepository(Database.getConnection());
-    final var userRepo = new UserRepository(Database.getConnection());
-    final var user = (UserModel)session.get(Constants.USER_SESSION);
+    try (var connection = Database.getConnection()) {
+      final var orderRepo = new OrderRepository(connection);
+      final var userRepo = new UserRepository(connection);
+      final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-    if (getId() == null) {
-      return new DefaultHttpHeaders("destroy").withStatus(400);
+      if (getId() == null) {
+        return new DefaultHttpHeaders("destroy").withStatus(400);
+      }
+
+      if (userRepo.isOwnerOfOrder(user.getId(), getId())) {
+        return new DefaultHttpHeaders("destroy").withStatus(401);
+      }
+
+      orderRepo.deleteOrder(getId());
+
+      return new DefaultHttpHeaders("destroy");
     }
-
-    if (userRepo.isOwnerOfOrder(user.getId(), getId())) {
-      return new DefaultHttpHeaders("destroy").withStatus(401);
-    }
-
-    orderRepo.deleteOrder(getId());
-
-    return new DefaultHttpHeaders("destroy");
   }
 }

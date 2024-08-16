@@ -2,7 +2,7 @@ package com.cibus.repository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 import com.cibus.dtos.UserDto;
 import com.cibus.exceptions.UserNotFoundException;
 import com.cibus.interfaces.repository.IUserRepository;
@@ -76,7 +76,7 @@ public class UserRepository implements IUserRepository {
   @Override
   public UserModel addUser(UserDto user) throws Exception {
     final var query = "INSERT INTO users (type, name, mobile, email, password) VALUES (?, ?, ?, ?, ?)";
-    try (var stmt = connection.prepareStatement(query)) {
+    try (var stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
       stmt.setString(1, user.getType());
       stmt.setString(2, user.getName());
       stmt.setString(3, user.getMobile());

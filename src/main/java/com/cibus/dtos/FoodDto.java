@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class FoodDto implements Serializable {
   // Java Bean for Food
-  public void setHotelId(long hotelId) {
+  public void setHotelId(Long hotelId) {
     this.hotelId = hotelId;
   }
 
@@ -12,11 +12,11 @@ public class FoodDto implements Serializable {
     this.name = name;
   }
 
-  public void setPrice(int price) {
+  public void setPrice(Integer price) {
     this.price = price;
   }
 
-  public long getHotelId() {
+  public Long getHotelId() {
     return hotelId;
   }
 
@@ -24,12 +24,12 @@ public class FoodDto implements Serializable {
     return name;
   }
 
-  public int getPrice() {
+  public Integer getPrice() {
     return price;
   }
 
   // Model attributes for Food
   private String name;
-  private int price;
-  private long hotelId;
+  private Integer price;
+  private Long hotelId;
 }

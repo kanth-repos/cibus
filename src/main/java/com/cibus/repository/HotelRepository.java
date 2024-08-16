@@ -2,6 +2,7 @@ package com.cibus.repository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.cibus.dtos.HotelDto;
@@ -18,7 +19,7 @@ public class HotelRepository implements IHotelRepository {
   @Override
   public HotelModel addHotel(HotelDto hotel) throws Exception {
     final var query = "INSERT INTO hotels (name, city, owner_id) VALUES (?, ?, ?)";
-    try (var stmt = connection.prepareStatement(query)) {
+    try (var stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
       stmt.setString(1, hotel.getName());
       stmt.setString(2, hotel.getCity());
       stmt.setLong(3, hotel.getOwnerId());

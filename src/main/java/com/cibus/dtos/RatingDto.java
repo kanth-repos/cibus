@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class RatingDto implements Serializable {
   // Java Bean for Rating
-  public void setUserId(long userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 
-  public void setFoodId(long foodId) {
+  public void setFoodId(Long foodId) {
     this.foodId = foodId;
   }
 
-  public void setRating(int rating) {
+  public void setRating(Integer rating) {
     this.rating = rating;
   }
 
@@ -20,15 +20,15 @@ public class RatingDto implements Serializable {
     this.message = message;
   }
 
-  public long getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public long getFoodId() {
+  public Long getFoodId() {
     return foodId;
   }
 
-  public int getRating() {
+  public Integer getRating() {
     return rating;
   }
 
@@ -37,8 +37,8 @@ public class RatingDto implements Serializable {
   }
 
   // Model attributes for Rating
-  private long userId;
-  private long foodId;
-  private int rating;
+  private Long userId;
+  private Long foodId;
+  private Integer rating;
   private String message;
 }

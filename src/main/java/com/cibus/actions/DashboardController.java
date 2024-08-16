@@ -7,7 +7,7 @@ import org.apache.struts2.action.SessionAware;
 
 import java.util.Map;
 
-public class DashboardAction extends ActionSupport implements SessionAware {
+public class DashboardController extends ActionSupport implements SessionAware {
   @Override
   public void withSession(Map<String, Object> session) {
     this.session = session;

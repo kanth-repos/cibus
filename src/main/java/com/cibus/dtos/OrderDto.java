@@ -4,32 +4,32 @@ import java.io.Serializable;
 
 public class OrderDto implements Serializable {
   // Java Bean for Order
-  public void setUserId(long userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 
-  public void setFoodId(long foodId) {
+  public void setFoodId(Long foodId) {
     this.foodId = foodId;
   }
 
-  public void setQuantity(int quantity) {
+  public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
 
-  public long getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public long getFoodId() {
+  public Long getFoodId() {
     return foodId;
   }
 
-  public int getQuantity() {
+  public Integer getQuantity() {
     return quantity;
   }
 
   // Model attributes for Order
-  private long userId;
-  private long foodId;
-  private int quantity;
+  private Long userId;
+  private Long foodId;
+  private Integer quantity;
 }

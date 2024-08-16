@@ -16,7 +16,7 @@
   <constant name="struts.convention.default.parent.package" value="rest-default"/>
   <constant name="struts.convention.package.locators" value="controllers"/>
 
-  <constant name="struts.devMode" value="true" />
+  <constant name="struts.devMode" value="true" /> 
 
   <package name="default" namespace="/" extends="struts-default">
     <interceptors>
@@ -37,48 +37,78 @@
 
     <action name="index">
       <interceptor-ref name="defaultStack"/>
-      <result>/index.jsp</result>
+      <result type="dispatcher">/content/index.jsp</result>
     </action>
 
     <action name="signupForm">
       <interceptor-ref name="defaultStack"/>
-      <result>/pages/signup.jsp</result>
+      <result type="dispatcher">/content/pages/signup.jsp</result>
     </action>
 
     <action
-      class="com.cibus.actions.SignUpAction"
+      class="com.cibus.actions.SignUpController"
       name="signup">
       <interceptor-ref name="defaultStack"/>
-      <result name="input">/pages/signup.jsp</result>
-      <result name="success">/pages/created.jsp</result>
+      <result name="input" type="dispatcher">/content/pages/signup.jsp</result>
+      <result name="success" type="dispatcher">/content/pages/created.jsp</result>
     </action>
 
     <action name="signinForm">
       <interceptor-ref name="defaultStack"/>
-      <result>/pages/signin.jsp</result>
+      <result type="dispatcher">/content/pages/signin.jsp</result>
     </action>
 
     <action
-      class="com.cibus.actions.SignInAction"
+      class="com.cibus.actions.SignInController"
       name="signin">
       <interceptor-ref name="defaultStack"/>
       <result name="success" type="redirect">index</result>
-      <result name="input">/pages/signin.jsp</result>
+      <result name="input" type="dispatcher">/content/pages/signin.jsp</result>
     </action>
 
     <action
-      class="com.cibus.actions.SignOutAction"
+      class="com.cibus.actions.SignOutController"
       name="signout">
       <interceptor-ref name="authStack"/>
       <result name="success" type="redirect">index</result>
     </action>
 
     <action
-      class="com.cibus.actions.DashboardAction"
+      class="com.cibus.actions.DashboardController"
       name="dashboard">
       <interceptor-ref name="authStack"/>
-      <result name="owner">/pages/owner/dashboard.jsp</result>
-      <result name="user">pages/user/dashboard.jsp</result>
+      <result name="owner" type="dispatcher">/content/pages/owner/dashboard.jsp</result>
+      <result name="user" type="dispatcher">/content/pages/user/dashboard.jsp</result>
+    </action>
+
+    <action name="createHotelForm">
+      <interceptor-ref name="authStack"/>
+      <result type="dispatcher">/content/pages/owner/createhotel.jsp</result>
+    </action>
+
+    <action 
+      class="com.cibus.actions.HotelIdController"
+      name="hotelOrders">
+      <interceptor-ref name="authStack"/>
+      <result type="dispatcher">/content/pages/owner/ordersview.jsp</result>
+    </action>
+
+    <action 
+      class="com.cibus.actions.HotelIdController"
+      name="createFoodForm">
+      <interceptor-ref name="authStack"/>
+      <result type="dispatcher">
+        /content/pages/owner/createfood.jsp
+      </result>
+    </action>
+
+    <action
+      class="com.cibus.actions.HotelIdController"
+      name="hotelFoods">
+      <interceptor-ref name="authStack"/>
+      <result name="success" type="dispatcher">
+        /content/pages/owner/foodsview.jsp
+      </result>
     </action>
   </package>
 
@@ -91,7 +121,8 @@
 
       <interceptor-stack name="authStack">
         <interceptor-ref name="requiresAuth" />
-        <interceptor-ref name="defaultStack" />
+        <interceptor-ref name="params"/>
+        <interceptor-ref name="restDefaultStack" />
       </interceptor-stack>
     </interceptors>
 

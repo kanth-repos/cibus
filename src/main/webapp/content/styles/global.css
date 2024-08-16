@@ -16,38 +16,6 @@ body {
   border-radius: 10px;
 }
 
-.hotel {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none !important;
-  color: inherit !important;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 300px;
-  height: 250px;
-
-  margin-top: 15px;
-  padding: 10px;
-  box-shadow: 0px 0px 34px -14px rgba(0,0,0,0.13),
-  0px 1px 4px 0px rgba(0,0,0,0.11);
-  border-radius: 10px;
-}
-
-.hotel .image {
-  max-height: 180px;
-  max-width: 280px;
-}
-
-.hotel .name {
-  font-weight: 700;
-}
-
-.hotel .city {
-  font-weight: 300;
-}
-
 .float-btn-right {
   display: flex;
   flex-direction: column;

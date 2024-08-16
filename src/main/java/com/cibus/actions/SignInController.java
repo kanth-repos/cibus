@@ -12,14 +12,14 @@ import com.cibus.exceptions.UserNotFoundException;
 import com.cibus.models.UserModel;
 import com.cibus.repository.UserRepository;
 
-public class SignInAction extends ActionSupport implements SessionAware {
+public class SignInController extends ActionSupport implements SessionAware {
   @Override
   public void validate() {
-    if(getPassword() == null || getPassword().isEmpty()) {
+    if (getPassword() == null || getPassword().isEmpty()) {
       addFieldError("user.password", "Password is required");
     }
 
-    if(getEmail() == null || getEmail().isEmpty()) {
+    if (getEmail() == null || getEmail().isEmpty()) {
       addFieldError("user.email", "Email is required");
     }
   }
@@ -46,23 +46,24 @@ public class SignInAction extends ActionSupport implements SessionAware {
 
   @Override
   public String execute() throws Exception {
-    final var connection = Database.getConnection();
-    final var repo = new UserRepository(connection);
-    final UserModel user;
+    try (var connection = Database.getConnection()) {
+      final var repo = new UserRepository(connection);
+      final UserModel user;
 
-    try {
-      user = repo.getUser(email);
-    } catch (UserNotFoundException e) {
-      return INPUT;
+      try {
+        user = repo.getUser(email);
+      } catch (UserNotFoundException e) {
+        return INPUT;
+      }
+
+      if (!user.verifyPassword(password)) {
+        return INPUT;
+      }
+
+      session.put(Constants.USER_SESSION, user);
+
+      return SUCCESS;
     }
-
-    if(!user.verifyPassword(password)) {
-      return INPUT;
-    }
-
-    session.put(Constants.USER_SESSION, user);
-
-    return SUCCESS;
   }
 
   @Override

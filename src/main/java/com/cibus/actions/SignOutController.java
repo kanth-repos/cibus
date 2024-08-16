@@ -6,7 +6,7 @@ import org.apache.struts2.dispatcher.SessionMap;
 
 import java.util.Map;
 
-public class SignOutAction extends ActionSupport implements SessionAware {
+public class SignOutController extends ActionSupport implements SessionAware {
   @Override
   public void withSession(Map<String, Object> session) {
     this.session = (SessionMap) session;

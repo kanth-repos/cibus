@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class HotelDto implements Serializable {
   // Java Bean for Hotel
-  public void setOwnerId(long ownerId) {
+  public void setOwnerId(Long ownerId) {
     this.ownerId = ownerId;
   }
 
@@ -16,7 +16,7 @@ public class HotelDto implements Serializable {
     this.city = city;
   }
 
-  public long getOwnerId() {
+  public Long getOwnerId() {
     return ownerId;
   }
 
@@ -30,5 +30,5 @@ public class HotelDto implements Serializable {
 
   private String name;
   private String city;
-  private long ownerId;
+  private Long ownerId;
 }

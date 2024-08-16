@@ -6,47 +6,43 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cibus</title>
-    <jsp:include page="/components/bootstrap.jsp" />
-    <link rel="stylesheet" href="styles/global.css" />
-    <link rel="stylesheet" href="styles/signup.css" />
+    <jsp:include page="/content/components/bootstrap.jsp" />
+    <jsp:include page="/content/components/jquery.jsp" />
+
+    <script type="module" src="content/scripts/owner/createfood.js"></script>
+
+    <link rel="stylesheet" href="content/styles/global.css" />
+    <link rel="stylesheet" href="content/styles/signup.css" />
   </head>
   <body>
-    <jsp:include page="/components/navbar.jsp" />
+    <jsp:include page="/content/components/navbar.jsp" />
     <div
       class="containter d-flex justify-content-center align-items-center fill-height"
     >
-      <form action="createHotel" method="post" class="p-3 pane" id="form">
+      <form class="p-3 pane" id="createFoodForm" data-hotelid="<s:property value='hotelId'/>">
         <div class="form-group py-2">
           <label for="nameInput">Name</label>
           <input
             type="text"
-            name="hotel.name"
+            name="name"
             class="form-control"
             id="nameInput"
             placeholder="Name"
           />
         </div>
         <div class="form-group py-2">
-          <label for="cityInput">City</label>
+          <label for="priceInput">Price</label>
           <input
             type="text"
-            name="hotel.city"
+            name="price"
             class="form-control"
-            id="cityInput"
-            placeholder="City"
-          />
-        </div>
-        <div class="form-group py-2">
-          <input
-            type="hidden"
-            name="hotel.ownerId"
-            id="ownerIdInput"
-            value="<s:property value='%{#session.userSession.id}'/>"
+            id="priceInput"
+            placeholder="Price"
           />
         </div>
         <div class="form-group py-2 d-flex justify-content-center">
           <button class="btn btn-primary" type="submit">
-            Create Hotel
+            Create Food
           </button>
         </div>
       </form>
