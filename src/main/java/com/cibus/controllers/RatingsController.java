@@ -130,7 +130,7 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("destroy").withStatus(400);
       }
 
-      if (userRepo.isOwnerOfRating(user.getId(), getId())) {
+      if (!userRepo.isOwnerOfRating(user.getId(), getId())) {
         return new DefaultHttpHeaders("destroy").withStatus(401);
       }
 

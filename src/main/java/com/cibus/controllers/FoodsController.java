@@ -82,7 +82,7 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
       final var usersRepo = new UserRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-      if (usersRepo.isOwnerOfHotel(user.getId(), dto.getHotelId())) {
+      if (!usersRepo.isOwnerOfHotel(user.getId(), dto.getHotelId())) {
         return new DefaultHttpHeaders("create").withStatus(401);
       }
 
@@ -105,7 +105,7 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      if (usersRepo.isOwnerOfFood(user.getId(), getId())) {
+      if (!usersRepo.isOwnerOfFood(user.getId(), getId())) {
         return new DefaultHttpHeaders("update").withStatus(401);
       }
 
@@ -133,7 +133,7 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("destroy").withStatus(400);
       }
 
-      if (usersRepo.isOwnerOfFood(user.getId(), getId())) {
+      if (!usersRepo.isOwnerOfFood(user.getId(), getId())) {
         return new DefaultHttpHeaders("destroy").withStatus(401);
       }
 

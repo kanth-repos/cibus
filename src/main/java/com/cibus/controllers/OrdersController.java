@@ -130,7 +130,7 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("destroy").withStatus(400);
       }
 
-      if (userRepo.isOwnerOfOrder(user.getId(), getId())) {
+      if (!userRepo.isOwnerOfOrder(user.getId(), getId())) {
         return new DefaultHttpHeaders("destroy").withStatus(401);
       }
 

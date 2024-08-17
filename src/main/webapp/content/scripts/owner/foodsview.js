@@ -22,10 +22,10 @@ const foodHtml = (name, price) => `
 </a>
 `
 
-const onDeleteClick = (evt) => {
-  let hotel = $(evt.target).closest('.food')
-  let id = hotel.data('hotelid')
-  foodsApi.deleteFood(id);
+const onDeleteClick = async (evt) => {
+  let food = $(evt.target).closest('.food')
+  let data = food.data('food')
+  await foodsApi.deleteFood(data.id);
   window.location.reload();
 }
 

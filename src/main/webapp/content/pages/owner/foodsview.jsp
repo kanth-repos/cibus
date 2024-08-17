@@ -24,7 +24,7 @@
       data-hotelid="<s:property value='hotelId'/>"
     >
     </div>
-    <a class="float-btn-right" href="createFoodForm">
+    <a class="float-btn-right" href="createFoodForm?hotelId=<s:property value='hotelId'/>">
       Add Food
     </a>
   </body>
