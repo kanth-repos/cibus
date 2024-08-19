@@ -1,0 +1,32 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+  color: inherit !important;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 300px;
+  height: 280px;
+
+  margin-top: 15px;
+  padding: 10px;
+  box-shadow: 0px 0px 34px -14px rgba(0, 0, 0, 0.13),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.11);
+  border-radius: 10px;
+}
+
+.cart img {
+  max-height: 180px;
+  max-width: 280px;
+}
+
+.cart .food,
+.cart .qty {
+  font-weight: 500;
+}
+
+.cart .id {
+  font-weight: 700;
+}

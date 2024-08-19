@@ -80,8 +80,15 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
       if (user.getId() != dto.getUserId()) {
         return new DefaultHttpHeaders("create").withStatus(401);
       }
-  
-      cart = cartRepo.addCart(dto);
+
+      cart = cartRepo.getCart(dto.getUserId(), dto.getFoodId());
+
+      if(cart != null) {
+        cart.setQuantity(cart.getQuantity() + dto.getQuantity());
+        cartRepo.updateCart(cart); 
+      } else {
+        cart = cartRepo.addCart(dto);
+      }
   
       return new DefaultHttpHeaders("create");
     }

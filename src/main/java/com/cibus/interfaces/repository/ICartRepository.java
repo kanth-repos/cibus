@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface ICartRepository {
   ArrayList<CartModel> getCartsByUserId(long userId) throws Exception;
   void deleteCartsByUserId(long userId) throws Exception;
+  CartModel getCart(long userId, long foodId) throws Exception ;
 
   CartModel addCart(CartDto cart) throws Exception;
   void updateCart(CartModel cart) throws Exception;

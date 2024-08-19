@@ -1,5 +1,7 @@
 import * as constants from '../constants/constants.js'
 import * as foodsApi from '../apiclient/foodapi.js'
+import * as userApi from "../apiclient/userapi.js"
+import * as cartApi from '../apiclient/cartapi.js'
 
 const foodHtml = (name, price) => `
 <div class="food">
@@ -14,19 +16,28 @@ const foodHtml = (name, price) => `
     ${price}
   </div>
   <div class="actions">
-    <img src="${constants.BASE_URL}/content/images/delete.png"
+    <img src="${constants.BASE_URL}/content/images/checkout.png"
       class="img-fluid"
-      title="delete"
+      title="Add to Cart"
     />
   </div>
 </a>
 `
 
-const onDeleteClick = async (evt) => {
+const onCartClick = async (evt) => {
   let food = $(evt.target).closest('.food')
   let data = food.data('food')
-  await foodsApi.deleteFood(data.id);
-  window.location.reload();
+  let user = await userApi.getUser()
+  let quantity = window.prompt("Enter Quantity", 1)
+
+  let cart = {
+    userId: user.id,
+    foodId : data.id,
+    quantity: quantity
+  }
+
+  await cartApi.postCart(cart)
+  window.alert("Added to Cart")
 }
 
 const loadFoods = async () => {
@@ -38,7 +49,7 @@ const loadFoods = async () => {
     let element = $(foodHtml(food.name, food.price))
     let actions = element.find(".actions > img").toArray()
     element.data('food', food)
-    $(actions[0]).on('click', onDeleteClick)
+    $(actions[0]).on('click', onCartClick)
     container.append(element)
   }
 }

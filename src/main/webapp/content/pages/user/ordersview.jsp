@@ -9,7 +9,7 @@
     <jsp:include page="/content/components/bootstrap.jsp" />
     <jsp:include page="/content/components/jquery.jsp" />
 
-    <script type="module" src="content/scripts/owner/ordersview.js" >
+    <script type="module" src="content/scripts/user/ordersview.js" >
     </script>
 
     <link rel="stylesheet" href="content/styles/global.css" />
@@ -21,7 +21,6 @@
     <div
       class="containter d-flex flex-row justify-content-center align-items-center gap-4 flex-wrap py-5"
       id="ordersContainer"
-      data-hotelid="<s:property value='hotelId'/>"
     >
     </div>
   </body>

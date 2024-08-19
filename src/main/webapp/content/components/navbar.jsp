@@ -18,7 +18,10 @@
       </li>
       <s:if test="%{#session.userSession.type == 'user'}">
         <li class="nav-item">
-          <a class="nav-link" href="cart">Cart</a>
+          <a class="nav-link" href="usercart">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="userorders">Orders</a>
         </li>
       </s:if>
       <li>

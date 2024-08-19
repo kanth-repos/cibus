@@ -17,6 +17,24 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "Reload",
+      "type": "shell",
+      "command": "curl --user admin:password http://localhost:8080/manager/text/reload?path=/cibus",
+      "dependsOn": "Build"
+    },
+    {
+      "label": "UnDeploy",
+      "type": "shell",
+      "command": "curl --user admin:password http://localhost:8080/manager/text/undeploy?path=/cibus",
+      "dependsOn": "Build"
+    },
+    {
+      "label": "Start",
+      "type": "shell",
+      "command": "curl --user admin:password http://localhost:8080/manager/text/start?path=/cibus",
+      "dependsOn": "UnDeploy"
     }
   ]
 }

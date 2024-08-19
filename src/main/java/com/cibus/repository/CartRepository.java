@@ -94,4 +94,26 @@ public class CartRepository implements ICartRepository {
       stmt.executeUpdate(query);
     }
   }
+
+  @Override
+  public CartModel getCart(long userId, long foodId) throws Exception {
+    final String findQuery = "SELECT * from carts where user_id = ? and food_id = ?";
+    try(var stmt = connection.prepareStatement(findQuery)) {
+      stmt.setLong(1, userId);
+      stmt.setLong(2, foodId);
+
+      var rs = stmt.executeQuery();
+
+      if(!rs.next()) {
+        return null;
+      }
+
+      var model = new CartModel(rs.getInt(1));
+      model.setUserId(rs.getLong(2));
+      model.setFoodId(rs.getLong(3));
+      model.setQuantity(rs.getInt(4));
+      return model;
+    }
+
+  }
 }

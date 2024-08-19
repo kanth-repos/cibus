@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS carts (
   user_id BIGINT NOT NULL,
   food_id BIGINT NOT NULL,
   quantity int NOT NULL,
+  UNIQUE (user_id, food_id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (food_id) REFERENCES foods(id)
 );
@@ -55,6 +56,7 @@ CREATE TABLE IF NOT EXISTS ratings (
   food_id BIGINT NOT NULL,
   rating int NOT NULL,
   message varchar(255) NOT NULL,
+  UNIQUE (user_id, food_id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (food_id) REFERENCES foods(id)
 );

@@ -1,13 +1,10 @@
 {
-    "java.project.sourcePaths": [
-        "src/main/java"
-    ],
-    "cSpell.words": [
-        "cibus",
-        "jdbc",
-        "MYSQLURL"
-    ],
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-    ],
+  "java.project.sourcePaths": ["src/main/java"],
+  "cSpell.words": ["cibus", "jdbc", "MYSQLURL"],
+  "java.project.referencedLibraries": ["lib/**/*.jar"],
+  "triggerTaskOnSave.tasks": {
+    "Build": [
+      "src/**/**"
+    ]
+  }
 }

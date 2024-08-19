@@ -9,20 +9,22 @@
     <jsp:include page="/content/components/bootstrap.jsp" />
     <jsp:include page="/content/components/jquery.jsp" />
 
-    <script type="module" src="content/scripts/owner/ordersview.js" >
+    <script type="module" src="content/scripts/user/cartview.js" >
     </script>
 
     <link rel="stylesheet" href="content/styles/global.css" />
-    <link rel="stylesheet" href="content/styles/orders.css" />
+    <link rel="stylesheet" href="content/styles/cart.css" />
     <link rel="stylesheet" href="content/styles/signup.css" />
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
       class="containter d-flex flex-row justify-content-center align-items-center gap-4 flex-wrap py-5"
-      id="ordersContainer"
-      data-hotelid="<s:property value='hotelId'/>"
+      id="cartContainer"
     >
+    </div>
+    <div class="float-btn-right" id="placeOrder">
+      Place Order
     </div>
   </body>
 </html>

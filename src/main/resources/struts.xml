@@ -90,14 +90,16 @@
       class="com.cibus.actions.HotelIdController"
       name="hotelOrders">
       <interceptor-ref name="authStack"/>
-      <result type="dispatcher">/content/pages/owner/ordersview.jsp</result>
+      <result name="owner" type="dispatcher">
+        /content/pages/owner/ordersview.jsp
+      </result>
     </action>
 
     <action 
       class="com.cibus.actions.HotelIdController"
       name="createFoodForm">
       <interceptor-ref name="authStack"/>
-      <result type="dispatcher">
+      <result name="owner" type="dispatcher">
         /content/pages/owner/createfood.jsp
       </result>
     </action>
@@ -106,8 +108,23 @@
       class="com.cibus.actions.HotelIdController"
       name="hotelFoods">
       <interceptor-ref name="authStack"/>
-      <result name="success" type="dispatcher">
+      <result name="owner" type="dispatcher">
         /content/pages/owner/foodsview.jsp
+      </result>
+      <result name="user" type="dispatcher">
+        /content/pages/user/foodsview.jsp
+      </result>
+    </action>
+
+    <action name="usercart">
+      <result type="dispatcher">
+        /content/pages/user/cartview.jsp
+      </result>
+    </action>
+
+    <action name="userorders">
+      <result type="dispatcher">
+        /content/pages/user/ordersview.jsp
       </result>
     </action>
   </package>
