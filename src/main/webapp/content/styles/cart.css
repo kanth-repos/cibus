@@ -4,11 +4,10 @@
   text-decoration: none !important;
   color: inherit !important;
 
+  text-align: center;
+
   align-items: center;
   justify-content: center;
-
-  width: 300px;
-  height: 280px;
 
   margin-top: 15px;
   padding: 10px;
@@ -18,8 +17,8 @@
 }
 
 .cart img {
-  max-height: 180px;
-  max-width: 280px;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .cart .food,
@@ -29,4 +28,13 @@
 
 .cart .id {
   font-weight: 700;
+}
+
+.cart .actions img {
+  height: 20px;
+  width: 20px;
+}
+
+.cart .actions img:hover {
+  cursor: pointer;
 }

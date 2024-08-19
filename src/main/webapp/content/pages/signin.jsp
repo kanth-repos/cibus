@@ -12,7 +12,7 @@
     <div
       class="containter d-flex justify-content-center align-items-center fill-height"
     >
-      <form action="signin" method="post" class="p-3 pane" id="form">
+      <form action="signin" method="post" class="p-3 card" id="form">
         <div class="form-group py-2">
           <label for="emailInput">Email address</label>
           <input

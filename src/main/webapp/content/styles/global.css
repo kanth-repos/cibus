@@ -8,6 +8,8 @@ body {
 
 .fill-height {
   min-height: calc(100% - 100px);
+  height:auto !important;
+  height: calc(100% - 100px);
 }
 
 .pane {

@@ -2,22 +2,24 @@ import * as constants from '../constants/constants.js'
 import * as foodsApi from '../apiclient/foodapi.js'
 
 const foodHtml = (name, price) => `
-<div class="food">
+<div class="food card">
   <img
     src="${constants.BASE_URL}/content/images/food.png"
-    class="img-fluid"
+    class="card-img-top"
   />
-  <div class="name">
-    ${name}
-  </div>
-  <div class="price">
-    ${price}
-  </div>
-  <div class="actions">
-    <img src="${constants.BASE_URL}/content/images/delete.png"
-      class="img-fluid"
-      title="delete"
-    />
+  <div class="card-body">
+    <div class="name">
+      ${name}
+    </div>
+    <div class="price">
+      ${price}
+    </div>
+    <div class="actions">
+      <img src="${constants.BASE_URL}/content/images/delete.png"
+        class="img-fluid"
+        title="delete"
+      />
+    </div>
   </div>
 </a>
 `

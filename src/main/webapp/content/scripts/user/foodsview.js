@@ -4,22 +4,24 @@ import * as userApi from "../apiclient/userapi.js"
 import * as cartApi from '../apiclient/cartapi.js'
 
 const foodHtml = (name, price) => `
-<div class="food">
+<div class="food card">
   <img
     src="${constants.BASE_URL}/content/images/food.png"
-    class="img-fluid"
+    class="card-img-top"
   />
-  <div class="name">
-    ${name}
-  </div>
-  <div class="price">
-    ${price}
-  </div>
-  <div class="actions">
-    <img src="${constants.BASE_URL}/content/images/checkout.png"
-      class="img-fluid"
-      title="Add to Cart"
-    />
+  <div class="card-body">
+    <div class="name">
+      ${name}
+    </div>
+    <div class="price">
+      ${price}
+    </div>
+    <div class="actions">
+      <img src="${constants.BASE_URL}/content/images/checkout.png"
+        class="img-fluid"
+        title="Add to Cart"
+      />
+    </div>
   </div>
 </a>
 `

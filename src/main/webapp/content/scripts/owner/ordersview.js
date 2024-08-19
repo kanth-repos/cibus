@@ -5,24 +5,26 @@ import * as ordersApi from "../apiclient/orderapi.js";
 
 const orderHtml = (order) => {
   return `
-    <div class="order">
+    <div class="order card">
       <img
         src="${constants.BASE_URL}/content/images/order.png"
-        class="img-fluid"
+        class="card-img-top"
       />
-      <div class="user">
-        From User: ${order.userId}
+      <div class="card-body">
+        <div class="user">
+          From User: ${order.userId}
+        </div>
+        <div class="food">
+          Food: ${order.foodId}
+        </div>
+        <div class="qty">
+          Quantity: ${order.quantity}
+        </div>
+        <div class="id">
+          OrderId: #${order.id}
+        </div>
       </div>
-      <div class="food">
-        Food: ${order.foodId}
-      </div>
-      <div class="qty">
-        Quantity: ${order.quantity}
-      </div>
-      <div class="id">
-        OrderId: #${order.id}
-      </div>
-</a>
+    </div>
 `;
 };
 

@@ -24,12 +24,23 @@
         class="com.cibus.intercept.AuthInterceptor"
         name="requiresAuth"
       />
+      <interceptor
+        class="com.cibus.intercept.LogInterceptor"
+        name="cibusLog"
+      />
+
+      <interceptor-stack name="cibusDefaultStack">
+        <interceptor-ref name="cibusLog" />
+        <interceptor-ref name="defaultStack" />
+      </interceptor-stack>
 
       <interceptor-stack name="authStack">
         <interceptor-ref name="requiresAuth" />
-        <interceptor-ref name="defaultStack" />
+        <interceptor-ref name="cibusDefaultStack" />
       </interceptor-stack>
     </interceptors>
+
+    <default-interceptor-ref name="cibusDefaultStack"/>
 
     <global-results>
       <result name="signin" type="redirect">signinForm</result>
@@ -117,14 +128,23 @@
     </action>
 
     <action name="usercart">
+      <interceptor-ref name="authStack"/>
       <result type="dispatcher">
         /content/pages/user/cartview.jsp
       </result>
     </action>
 
     <action name="userorders">
+      <interceptor-ref name="authStack"/>
       <result type="dispatcher">
         /content/pages/user/ordersview.jsp
+      </result>
+    </action>
+
+    <action name="account">
+      <interceptor-ref name="authStack"/>
+      <result type="dispatcher">
+        /content/pages/account.jsp
       </result>
     </action>
   </package>
@@ -135,13 +155,25 @@
         class="com.cibus.intercept.AuthInterceptor"
         name="requiresAuth"
       />
+      <interceptor
+        class="com.cibus.intercept.LogInterceptor"
+        name="cibusLog"
+      />
+
+      <interceptor-stack name="cibusDefaultStack">
+        <interceptor-ref name="cibusLog" />
+        <interceptor-ref name="params"/>
+        <interceptor-ref name="restDefaultStack" />
+      </interceptor-stack>
 
       <interceptor-stack name="authStack">
         <interceptor-ref name="requiresAuth" />
         <interceptor-ref name="params"/>
-        <interceptor-ref name="restDefaultStack" />
+        <interceptor-ref name="cibusDefaultStack" />
       </interceptor-stack>
     </interceptors>
+
+    <default-interceptor-ref name="cibusDefaultStack"/>
 
     <global-results>
       <result name="signin" type="httpheader">

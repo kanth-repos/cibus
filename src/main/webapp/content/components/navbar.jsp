@@ -24,6 +24,9 @@
           <a class="nav-link" href="userorders">Orders</a>
         </li>
       </s:if>
+      <li class="nav-item">
+        <a class="nav-link" href="account">Account</a>
+      </li>
       <li>
         <a class="nav-link" href="signout">SignOut</a>
       </li>
