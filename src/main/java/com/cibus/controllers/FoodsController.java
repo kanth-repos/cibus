@@ -74,6 +74,17 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
   }
 
   /**
+   * GET /foods/id
+   */
+  public HttpHeaders show() throws Exception {
+    try (var connection = Database.getConnection()) {
+      final var foodRepo = new FoodRepository(connection);
+      food = foodRepo.getFood(getId());
+      return new DefaultHttpHeaders("show");
+    }
+  }
+
+  /**
    * POST /foods
    */
   public HttpHeaders create() throws Exception {
@@ -97,7 +108,7 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
    */
   public HttpHeaders update() throws Exception {
     try (var connection = Database.getConnection()) {
-      final var FoodsRepo = new FoodRepository(connection);
+      final var foodsRepo = new FoodRepository(connection);
       final var usersRepo = new UserRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
@@ -109,12 +120,12 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(401);
       }
 
-      food = new FoodModel(getId());
-      food.setHotelId(dto.getHotelId());
-      food.setName(dto.getName());
-      food.setPrice(dto.getPrice());
+      food = foodsRepo.getFood(getId());
+      if(dto.getHotelId()!=null) food.setHotelId(dto.getHotelId());
+      if(dto.getName()!=null) food.setName(dto.getName());
+      if(dto.getPrice() !=null) food.setPrice(dto.getPrice());
 
-      FoodsRepo.updateFood(food);
+      foodsRepo.updateFood(food);
 
       return new DefaultHttpHeaders("update");
     }

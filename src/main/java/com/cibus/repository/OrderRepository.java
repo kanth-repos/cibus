@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import com.cibus.dtos.OrderDto;
+import com.cibus.exceptions.RowNotFoundException;
 import com.cibus.interfaces.repository.IOrderRepository;
 import com.cibus.models.OrderModel;
 
@@ -109,6 +110,28 @@ public class OrderRepository implements IOrderRepository {
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, id);
       stmt.executeUpdate();
+    }
+  }
+
+  @Override
+  public OrderModel getOrder(long id) throws Exception {
+    final var query = "SELECT * FROM orders where user_id = " + id;
+
+    try (var stmt = connection.createStatement()) {
+      var rs = stmt.executeQuery(query);
+
+      if(!rs.next()) {
+        throw new RowNotFoundException(query);
+      }
+
+      var orderId = rs.getLong(1);
+      var userId = rs.getLong(2);
+      var foodId = rs.getLong(3);
+      var order = new OrderModel(orderId);
+      order.setUserId(userId);
+      order.setFoodId(foodId);
+      order.setQuantity(rs.getInt(4));
+      return order;
     }
   }
 }

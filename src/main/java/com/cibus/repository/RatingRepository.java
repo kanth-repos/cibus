@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.cibus.dtos.RatingDto;
+import com.cibus.exceptions.RowNotFoundException;
 import com.cibus.interfaces.repository.IRatingRepository;
 import com.cibus.models.RatingModel;
 
@@ -87,6 +88,25 @@ public class RatingRepository implements IRatingRepository {
     final var query = "DELETE FROM ratings WHERE id = " + id;
     try (var stmt = connection.createStatement()) {
       stmt.executeUpdate(query);
+    }
+  }
+
+  @Override
+  public RatingModel getRating(long id) throws Exception {
+    final var query = "SELECT * FROM ratings where id = " + id;
+    try (var stmt = connection.createStatement()) {
+      var rs = stmt.executeQuery(query);
+
+      if(!rs.next()) {
+        throw new RowNotFoundException(query);
+      }
+
+      var rating = new RatingModel(rs.getLong(1));
+      rating.setUserId(rs.getLong(2));
+      rating.setFoodId(rs.getLong(3));
+      rating.setRating(rs.getInt(4));
+      rating.setMessage(rs.getString(5));
+      return rating;
     }
   }
 }

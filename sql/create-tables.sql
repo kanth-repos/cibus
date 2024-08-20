@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS hotels (
   name varchar(255) NOT NULL,
   city varchar(255) NOT NULL,
   owner_id BIGINT NOT NULL,
-  FOREIGN KEY (owner_id) REFERENCES users(id)
+  FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- create food table
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS foods (
   hotel_id BIGINT NOT NULL,
   name varchar(255) NOT NULL,
   price int NOT NULL,
-  FOREIGN KEY (hotel_id) REFERENCES hotels(id)
+  FOREIGN KEY (hotel_id) REFERENCES hotels(id) ON DELETE CASCADE
 );
 
 -- create order table
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS orders (
   user_id BIGINT NOT NULL,
   food_id BIGINT NOT NULL,
   quantity int NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
 );
 
 -- create cart table
@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS carts (
   food_id BIGINT NOT NULL,
   quantity int NOT NULL,
   UNIQUE (user_id, food_id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
 );
 
 -- create rating table
@@ -57,6 +57,6 @@ CREATE TABLE IF NOT EXISTS ratings (
   rating int NOT NULL,
   message varchar(255) NOT NULL,
   UNIQUE (user_id, food_id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (food_id) REFERENCES foods(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
 );

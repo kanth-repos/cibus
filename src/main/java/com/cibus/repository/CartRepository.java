@@ -3,6 +3,7 @@ package com.cibus.repository;
 import com.cibus.interfaces.repository.ICartRepository;
 import com.cibus.models.CartModel;
 import com.cibus.dtos.CartDto;
+import com.cibus.exceptions.RowNotFoundException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -114,6 +115,25 @@ public class CartRepository implements ICartRepository {
       model.setQuantity(rs.getInt(4));
       return model;
     }
+  }
 
+  @Override
+  public CartModel getCart(long id) throws Exception {
+    final String findQuery = "SELECT * from carts where id = ?";
+    try(var stmt = connection.prepareStatement(findQuery)) {
+      stmt.setLong(1, id);
+
+      var rs = stmt.executeQuery();
+
+      if(!rs.next()) {
+        throw new RowNotFoundException(findQuery + ":" + id);
+      }
+
+      var model = new CartModel(rs.getInt(1));
+      model.setUserId(rs.getLong(2));
+      model.setFoodId(rs.getLong(3));
+      model.setQuantity(rs.getInt(4));
+      return model;
+    }
   }
 }

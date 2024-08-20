@@ -70,6 +70,17 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
   }
 
   /**
+   * GET /carts/id
+   */
+  public HttpHeaders show() throws Exception {
+    try (var connection = Database.getConnection()) {
+      final var cartRepo = new CartRepository(connection);
+      cart = cartRepo.getCart(getId());
+      return new DefaultHttpHeaders("show");
+    }
+  }
+
+  /**
    * POST /carts
    */
   public HttpHeaders create() throws Exception {
@@ -115,10 +126,10 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(401);
       }
   
-      cart = new CartModel(this.getId());
-      cart.setQuantity(dto.getQuantity());
-      cart.setUserId(dto.getUserId());
-      cart.setFoodId(dto.getFoodId());
+      cart = cartRepo.getCart(getId());
+      if(dto.getQuantity()!=null) cart.setQuantity(dto.getQuantity());
+      if(dto.getUserId()!=null) cart.setUserId(dto.getUserId());
+      if(dto.getFoodId()!=null) cart.setFoodId(dto.getFoodId());
   
       cartRepo.updateCart(cart);
   

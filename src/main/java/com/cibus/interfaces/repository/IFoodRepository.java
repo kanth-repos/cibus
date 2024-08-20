@@ -7,7 +7,7 @@ import com.cibus.models.FoodModel;
 
 public interface IFoodRepository {
   ArrayList<FoodModel> getFoodsByHotelId(long hotelId) throws Exception;
-
+  FoodModel getFood(long id) throws Exception;
   FoodModel addFood(FoodDto food) throws Exception;
   void updateFood(FoodModel food) throws Exception;
   void deleteFood(FoodModel food) throws Exception;

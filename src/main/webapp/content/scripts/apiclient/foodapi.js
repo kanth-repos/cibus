@@ -24,6 +24,24 @@ export const getFoods = async (hotelId) => {
   return res.json()
 }
 
+export const getFood = async (foodId) => {
+  let url = `${constants.API_URL}/foods/${foodId}`
+
+  let res = await fetch(url, {
+    credentials: 'include',
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+
+  if (!res.ok) {
+    throw new Error(`res.statusText : ${res.statusText}`)
+  }
+
+  return res.json()
+}
+
 export const postFood = async (food) => {
   let url = `${constants.API_URL}/foods`
 

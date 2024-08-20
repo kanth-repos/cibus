@@ -100,6 +100,17 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
   }
 
   /**
+   * GET /orders/id
+   */
+  public HttpHeaders show() throws Exception {
+    try (var connection = Database.getConnection()) {
+      final var orderRepo = new OrderRepository(connection);
+      order = orderRepo.getOrder(getId());
+      return new DefaultHttpHeaders("show");
+    }
+  }
+
+  /**
    * POST /orders
    */
   public HttpHeaders create() throws Exception {

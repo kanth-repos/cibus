@@ -3,6 +3,7 @@ package com.cibus.repository;
 import com.cibus.interfaces.repository.IFoodRepository;
 import com.cibus.models.FoodModel;
 import com.cibus.dtos.FoodDto;
+import com.cibus.exceptions.RowNotFoundException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -86,6 +87,25 @@ public class FoodRepository implements IFoodRepository {
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, id);
       stmt.executeUpdate();
+    }
+  }
+
+  @Override
+  public FoodModel getFood(long id) throws Exception {
+    final var query = "SELECT * FROM foods where id = " + id;
+    try (var stmt = connection.createStatement()) {
+      var rs = stmt.executeQuery(query);
+
+      if(!rs.next()) {
+        throw new RowNotFoundException(query);
+      }
+
+      var foodId = rs.getLong(1);
+      var food = new FoodModel(foodId);
+      food.setHotelId(rs.getLong(2));
+      food.setName(rs.getString(3));
+      food.setPrice(rs.getInt(4));
+      return food;
     }
   }
 }

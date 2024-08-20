@@ -22,6 +22,25 @@ export const getHotels = async (ownerId) => {
   return res.json()
 }
 
+export const getHotel = async (hotelId) => {
+  let url = `${constants.API_URL}/hotels/${hotelId}`
+
+  let res = await fetch(url, {
+    credentials: 'include',
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+
+  if (!res.ok) {
+    throw new Error(`res.statusText : ${res.statusText}`)
+  }
+
+  return res.json()
+}
+
+
 export const postHotel = async (hotel) => {
   let url = `${constants.API_URL}/hotels`
 

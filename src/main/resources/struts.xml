@@ -31,7 +31,9 @@
 
       <interceptor-stack name="cibusDefaultStack">
         <interceptor-ref name="cibusLog" />
-        <interceptor-ref name="defaultStack" />
+        <interceptor-ref name="defaultStack">
+          <param name="csp.disabled">true</param>
+        </interceptor-ref>
       </interceptor-stack>
 
       <interceptor-stack name="authStack">
@@ -145,6 +147,31 @@
       <interceptor-ref name="authStack"/>
       <result type="dispatcher">
         /content/pages/account.jsp
+      </result>
+    </action>
+
+    <action
+      class="com.cibus.actions.HotelIdController"
+      name="editHotelForm">
+      <interceptor-ref name="authStack"/>
+      <result name="owner" type="dispatcher">
+        /content/pages/owner/edithotel.jsp
+      </result>
+    </action>
+
+    <action
+      class="com.cibus.actions.FoodIdController"
+      name="editFoodForm">
+      <interceptor-ref name="authStack"/>
+      <result name="owner" type="dispatcher">
+        /content/pages/owner/editfood.jsp
+      </result>
+    </action>
+
+    <action name="editUserForm">
+      <interceptor-ref name="authStack"/>
+      <result name="success" type="dispatcher">
+        /content/pages/edituser.jsp
       </result>
     </action>
   </package>

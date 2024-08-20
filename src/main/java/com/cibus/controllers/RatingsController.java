@@ -73,6 +73,17 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
   }
 
   /**
+   * GET /ratings/id
+   */
+  public HttpHeaders show() throws Exception {
+    try (var connection = Database.getConnection()) {
+      final var ratingsRepo = new RatingRepository(connection);
+      rating = ratingsRepo.getRating(getId());
+      return new DefaultHttpHeaders("show");
+    }
+  }
+
+  /**
    * POST /ratings
    */
   public HttpHeaders create() throws Exception {
@@ -105,11 +116,11 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      rating = new RatingModel(getId());
-      rating.setUserId(dto.getUserId());
-      rating.setRating(dto.getRating());
-      rating.setMessage(dto.getMessage());
-      rating.setFoodId(dto.getFoodId());
+      rating = ratingRepo.getRating(getId());
+      if(dto.getUserId()!=null)rating.setUserId(dto.getUserId());
+      if(dto.getRating()!=null)rating.setRating(dto.getRating());
+      if(dto.getMessage()!=null)rating.setMessage(dto.getMessage());
+      if(dto.getFoodId()!=null)rating.setFoodId(dto.getFoodId());
 
       ratingRepo.updateRating(rating);
 

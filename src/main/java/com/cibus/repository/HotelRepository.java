@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.cibus.dtos.HotelDto;
+import com.cibus.exceptions.RowNotFoundException;
 import com.cibus.interfaces.repository.IHotelRepository;
 import com.cibus.models.HotelModel;
 
@@ -84,12 +85,12 @@ public class HotelRepository implements IHotelRepository {
 
   @Override
   public void updateHotel(HotelModel hotel) throws Exception {
-    final var query = "UPDATE hotels SET name = ?, city = ?, owner_id = ?, WHERE id = ?";
+    final var query = "UPDATE hotels SET name = ?, city = ?, owner_id = ? WHERE id = ?";
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setString(1, hotel.getName());
       stmt.setString(2, hotel.getCity());
-      stmt.setLong(3, hotel.getId());
-      stmt.setLong(4, hotel.getOwnerId());
+      stmt.setLong(3, hotel.getOwnerId());
+      stmt.setLong(4, hotel.getId());
       stmt.executeUpdate();
     }
   }
@@ -105,6 +106,25 @@ public class HotelRepository implements IHotelRepository {
     try (var stmt = connection.prepareStatement(query)) {
       stmt.setLong(1, id);
       stmt.executeUpdate();
+    }
+  }
+
+  @Override
+  public HotelModel getHotel(long id) throws Exception {
+    final var query = "SELECT * FROM hotels where id = " + id;
+    try (var stmt = connection.createStatement()) {
+      var rs = stmt.executeQuery(query);
+
+      if(!rs.next()) {
+        throw new RowNotFoundException(query);
+      }
+
+      var hotelId = rs.getLong(1);
+      var hotel = new HotelModel(hotelId);
+      hotel.setName(rs.getString(2));
+      hotel.setCity(rs.getString(3));
+      hotel.setOwnerId(rs.getLong(4));
+      return hotel;
     }
   }
 }

@@ -8,6 +8,7 @@ import com.cibus.models.HotelModel;
 public interface IHotelRepository {
   ArrayList<HotelModel> getHotelsByOwnerId(long ownerId) throws Exception;
   ArrayList<HotelModel> getAllHotels() throws Exception;
+  HotelModel getHotel(long id) throws Exception;
 
   HotelModel addHotel(HotelDto hotel) throws Exception;
   void updateHotel(HotelModel hotel) throws Exception;

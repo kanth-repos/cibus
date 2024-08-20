@@ -7,7 +7,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 public class UserDto implements Serializable {
   // Java Bean for User
   public void setPassword(String password) {
-    this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+    if(password != null) {
+      this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+    }
   }
 
   public void setType(String type) {

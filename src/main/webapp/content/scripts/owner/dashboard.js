@@ -27,6 +27,10 @@ const hotelHtml = (name, city) => `
       class="img-fluid"
       title="delete"
     />
+    <img src="${constants.BASE_URL}/content/images/edit.png"
+      class="img-fluid"
+      title="Edit"
+    />
   </div>
 </a>
 `
@@ -50,6 +54,12 @@ const onDeleteClick = (evt) => {
   window.location.reload();
 }
 
+const onEditClick = (evt) => {
+  let hotel = $(evt.target).closest('.hotel')
+  let data = hotel.data('hotel')
+  window.location = `${constants.BASE_URL}/editHotelForm?hotelId=${data.id}`;
+}
+
 const loadHotels = async () => {
   let container = $('#hotelsContainer')
   let user = await userApi.getUser()
@@ -62,6 +72,7 @@ const loadHotels = async () => {
     $(actions[0]).on('click', onOrdersClick)
     $(actions[1]).on('click', onFoodsClick)
     $(actions[2]).on('click', onDeleteClick)
+    $(actions[3]).on('click', onEditClick)
     container.append(element)
   }
 }

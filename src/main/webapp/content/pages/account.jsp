@@ -51,5 +51,8 @@
         </tr>
       </table>
     </div>
+    <a class="float-btn-right" href="editUserForm">
+      Edit
+    </a>
   </body>
 </html>

@@ -19,6 +19,10 @@ const foodHtml = (name, price) => `
         class="img-fluid"
         title="delete"
       />
+      <img src="${constants.BASE_URL}/content/images/edit.png"
+        class="img-fluid"
+        title="Edit"
+      />
     </div>
   </div>
 </a>
@@ -31,6 +35,12 @@ const onDeleteClick = async (evt) => {
   window.location.reload();
 }
 
+const onEditClick = async (evt) => {
+  let food = $(evt.target).closest('.food')
+  let data = food.data('food')
+  window.location = `${constants.BASE_URL}/editFoodForm?foodId=${data.id}`;
+}
+
 const loadFoods = async () => {
   let container = $('#foodsContainer')
   let hotelId = container.data('hotelid')
@@ -41,6 +51,7 @@ const loadFoods = async () => {
     let actions = element.find(".actions > img").toArray()
     element.data('food', food)
     $(actions[0]).on('click', onDeleteClick)
+    $(actions[1]).on('click', onEditClick)
     container.append(element)
   }
 }

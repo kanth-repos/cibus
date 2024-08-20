@@ -80,6 +80,17 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
   }
 
   /**
+   * GET /hotels/id
+   */
+  public HttpHeaders show() throws Exception {
+    try (var connection = Database.getConnection()) {
+      final var hotelRepo = new HotelRepository(connection);
+      hotel = hotelRepo.getHotel(getId());
+      return new DefaultHttpHeaders("show");
+    }
+  }
+
+  /**
    * POST /hotels
    */
   public HttpHeaders create() throws Exception {
@@ -118,14 +129,14 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("create").withStatus(403);
       }
 
-      hotel = new HotelModel(getId());
+      hotel = hotelRepo.getHotel(getId());
 
       if (dto.getOwnerId() != null)
         hotel.setOwnerId(dto.getOwnerId());
       if (dto.getCity() != null)
         hotel.setCity(dto.getCity());
-      if (dto.getCity() != null)
-        hotel.setName(dto.getCity());
+      if (dto.getName() != null)
+        hotel.setName(dto.getName());
 
       hotelRepo.updateHotel(hotel);
 

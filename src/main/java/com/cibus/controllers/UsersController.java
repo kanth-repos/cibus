@@ -80,22 +80,35 @@ public class UsersController implements ModelDriven<Object>, SessionAware {
   public HttpHeaders update() throws Exception {
     try (var connection = Database.getConnection()) {
       final var userRepo = new UserRepository(connection);
-      final var sUser = (UserModel) session.get(Constants.USER_SESSION);
+      final var user = (UserModel) session.get(Constants.USER_SESSION);
 
       if (getId() == null) {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      if (sUser.getId() != getId()) {
+      if (user.getId() != getId()) {
         return new DefaultHttpHeaders("update").withStatus(401);
       }
 
-      user = new UserModel(getId());
-      user.setName(dto.getName());
-      user.setEmail(dto.getEmail());
-      user.setPassword(dto.getPassword());
-      user.setMobile(dto.getMobile());
-      user.setType(dto.getType());
+      if (dto.getName() != null) {
+        user.setName(dto.getName());
+      }
+
+      if (dto.getEmail() != null) {
+        user.setEmail(dto.getEmail());
+      }
+
+      if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+        user.setPassword(dto.getPassword());
+      }
+
+      if (dto.getMobile() != null) {
+        user.setMobile(dto.getMobile());
+      }
+      
+      if (dto.getType() != null) {
+        user.setType(dto.getType());
+      }
 
       userRepo.updateUser(user);
 
