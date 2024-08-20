@@ -106,6 +106,11 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var orderRepo = new OrderRepository(connection);
       order = orderRepo.getOrder(getId());
+
+      if (order == null) {
+        return new DefaultHttpHeaders("show").withStatus(404);
+      }
+
       return new DefaultHttpHeaders("show");
     }
   }

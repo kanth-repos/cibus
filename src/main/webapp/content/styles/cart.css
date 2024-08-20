@@ -21,11 +21,6 @@
   max-width: 100px;
 }
 
-.cart .food,
-.cart .qty {
-  font-weight: 500;
-}
-
 .cart .id {
   font-weight: 700;
 }

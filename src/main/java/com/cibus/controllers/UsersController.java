@@ -54,14 +54,9 @@ public class UsersController implements ModelDriven<Object>, SessionAware {
   public HttpHeaders show() throws Exception {
     try (var connection = Database.getConnection()) {
       final var userRepo = new UserRepository(connection);
-      final var sUser = (UserModel) session.get(Constants.USER_SESSION);
 
       if (getId() == null) {
         return new DefaultHttpHeaders("show").withStatus(400);
-      }
-
-      if (sUser.getId() != getId()) {
-        return new DefaultHttpHeaders("show").withStatus(401);
       }
 
       user = userRepo.getUser(getId());

@@ -79,6 +79,11 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var ratingsRepo = new RatingRepository(connection);
       rating = ratingsRepo.getRating(getId());
+
+      if (rating == null) {
+        return new DefaultHttpHeaders("show").withStatus(404);
+      }
+
       return new DefaultHttpHeaders("show");
     }
   }

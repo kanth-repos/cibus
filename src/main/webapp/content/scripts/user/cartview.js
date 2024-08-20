@@ -2,8 +2,9 @@ import * as constants from '../constants/constants.js'
 import * as userApi from "../apiclient/userapi.js"
 import * as cartApi from '../apiclient/cartapi.js'
 import * as orderApi from '../apiclient/orderapi.js'
+import * as foodApi from '../apiclient/foodapi.js'
 
-const cartHtml = (item) => `
+const cartHtml = (item, food) => `
 <div class="cart card">
   <img
     src="${constants.BASE_URL}/content/images/order.png"
@@ -11,7 +12,7 @@ const cartHtml = (item) => `
   />
   <div class="card-body">
     <div class="food">
-      Food Id: ${item.foodId}
+      Food: ${food.name}
     </div>
     <div class="qty">
       Quantity: ${item.quantity}
@@ -60,7 +61,8 @@ const loadCart = async () => {
   let cart = await cartApi.getCarts(user.id);
 
   for(let item of cart) {
-    let element = $(cartHtml(item));
+    let food = await foodApi.getFood(item.foodId);
+    let element = $(cartHtml(item, food));
     let actions = element.find(".actions > img").toArray()
     element.data('cart', item)
     $(actions[0]).on('click', onDeleteClick)

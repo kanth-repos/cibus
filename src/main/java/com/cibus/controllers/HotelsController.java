@@ -86,6 +86,11 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var hotelRepo = new HotelRepository(connection);
       hotel = hotelRepo.getHotel(getId());
+
+      if (hotel == null) {
+        return new DefaultHttpHeaders("show").withStatus(404);
+      }
+
       return new DefaultHttpHeaders("show");
     }
   }

@@ -76,6 +76,11 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var cartRepo = new CartRepository(connection);
       cart = cartRepo.getCart(getId());
+
+      if (cart == null) {
+        return new DefaultHttpHeaders("show").withStatus(404);
+      }
+    
       return new DefaultHttpHeaders("show");
     }
   }

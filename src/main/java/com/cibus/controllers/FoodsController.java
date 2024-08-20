@@ -80,6 +80,11 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var foodRepo = new FoodRepository(connection);
       food = foodRepo.getFood(getId());
+
+      if (food == null) {
+        return new DefaultHttpHeaders("show").withStatus(404);
+      }
+
       return new DefaultHttpHeaders("show");
     }
   }
