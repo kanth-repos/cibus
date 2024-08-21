@@ -9,7 +9,7 @@
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
-      class="containter d-flex justify-content-center align-items-center fill-height"
+      class="containter d-flex justify-content-center align-items-center fill-height px-1"
     >
       <form action="signup" method="post" class="p-3 card" id="form" style="width: 450px;">
         <div class="form-group py-2">

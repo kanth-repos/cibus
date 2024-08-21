@@ -4,7 +4,7 @@ import * as userApi from "../apiclient/userapi.js";
 import * as ordersApi from "../apiclient/orderapi.js";
 
 const orderHtml = (order, food, user) => `
-<div class="order card">
+<div class="order card pane">
   <img
     src="${constants.BASE_URL}/content/images/order.png"
     class="card-img-top"

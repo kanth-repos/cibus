@@ -14,7 +14,7 @@
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
-      class="containter d-flex justify-content-center align-items-center fill-height"
+      class="containter d-flex justify-content-center align-items-center fill-height px-1"
     >
       <form class="p-3 card" id="editUserForm" style="width: 450px;">
         <div class="form-group py-2">

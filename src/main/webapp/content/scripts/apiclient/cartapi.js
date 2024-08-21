@@ -17,8 +17,11 @@ export const getCarts = async (userId) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -37,8 +40,11 @@ export const postCart = async (cart) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -57,8 +63,11 @@ export const putCart = async (id, cart) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -75,8 +84,11 @@ export const deleteCart = async (id) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()

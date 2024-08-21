@@ -5,7 +5,7 @@ import * as orderApi from '../apiclient/orderapi.js'
 import * as foodApi from '../apiclient/foodapi.js'
 
 const cartHtml = (item, food) => `
-<div class="cart card">
+<div class="cart card pane">
   <img
     src="${constants.BASE_URL}/content/images/order.png"
     class="card-img-top"
@@ -45,6 +45,7 @@ const onOrderClick = async (evt) => {
     await cartApi.deleteCart(item.id);
   }
 
+  window.alert("All foods in Cart are Ordered")
   window.location.reload()
 }
 

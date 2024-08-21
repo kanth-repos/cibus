@@ -9,12 +9,12 @@
     <jsp:include page="/content/components/bootstrap.jsp" />
     <link rel="stylesheet" href="content/styles/account.css" />
     <link rel="stylesheet" href="content/styles/global.css" />
-    <link rel="stylesheet" href="content/styles/signup.css" />
+
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
-      class="containter d-flex justify-content-center align-items-center fill-height"
+      class="containter d-flex justify-content-center align-items-center fill-height px-1"
     >
       <table class="account">
         <tr>

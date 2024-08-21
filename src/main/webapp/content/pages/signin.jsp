@@ -5,12 +5,12 @@
     <title>Cibus</title>
     <jsp:include page="/content/components/bootstrap.jsp" />
     <link rel="stylesheet" href="content/styles/global.css" />
-    <link rel="stylesheet" href="content/styles/signup.css" />
+
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
-      class="containter d-flex justify-content-center align-items-center fill-height"
+      class="containter d-flex justify-content-center align-items-center fill-height px-1"
     >
       <form action="signin" method="post" class="p-3 card" id="form">
         <div class="form-group py-2">

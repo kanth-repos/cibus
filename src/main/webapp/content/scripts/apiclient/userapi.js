@@ -15,8 +15,11 @@ export const getUser = async (id) => {
     }
   });
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`);
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json();
@@ -35,8 +38,11 @@ export const putUser = async (id, user) => {
     }
   });
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`);
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json();

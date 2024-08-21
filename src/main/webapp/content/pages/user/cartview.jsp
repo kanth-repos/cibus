@@ -14,12 +14,11 @@
 
     <link rel="stylesheet" href="content/styles/global.css" />
     <link rel="stylesheet" href="content/styles/cart.css" />
-    <link rel="stylesheet" href="content/styles/signup.css" />
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
-      class="containter d-flex flex-row justify-content-center align-items-center gap-4 flex-wrap py-5"
+      class="containter d-flex flex-row justify-content-center align-items-center gap-4 flex-wrap py-5 px-1"
       id="cartContainer"
     >
     </div>

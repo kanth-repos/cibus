@@ -15,8 +15,11 @@ export const getHotels = async (ownerId) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -33,8 +36,11 @@ export const getHotel = async (hotelId) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -54,8 +60,11 @@ export const postHotel = async (hotel) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -74,8 +83,11 @@ export const putHotel = async (id, hotel) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -92,8 +104,11 @@ export const deleteHotel = async (id) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()

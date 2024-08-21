@@ -9,7 +9,7 @@
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
-    <div class="containter d-flex flex-column justify-content-center align-items-center fill-height">
+    <div class="containter d-flex flex-column justify-content-center align-items-center fill-height px-1">
         <img src="content/images/tick.png" class="img-fluid">
         <p>Account Creation was Success, Sign In</p>
     </div>

@@ -77,4 +77,16 @@
       <transaction src="sql/create-tables.sql" />
     </sql>
   </target>
+
+  <!-- Used to load data -->
+  <target name="ldata">
+    <sql
+      classpath="${fromLib}/mysql-connector-j-9.0.0.jar"
+      driver="com.mysql.cj.jdbc.Driver"
+      userid="user"
+      password="password"
+      url="jdbc:mysql://localhost:3306/cibus">
+      <transaction src="sql/load-data.sql" />
+    </sql>
+  </target>
 </project>

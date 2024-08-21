@@ -17,8 +17,11 @@ export const getFoods = async (hotelId) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -35,8 +38,11 @@ export const getFood = async (foodId) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -55,8 +61,11 @@ export const postFood = async (food) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -75,8 +84,11 @@ export const putFood = async (id, food) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -93,8 +105,11 @@ export const deleteFood = async (id) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()

@@ -3,7 +3,7 @@ import * as hotelApi from '../apiclient/hotelapi.js'
 import * as userApi from '../apiclient/userapi.js'
 
 const hotelHtml = (name, city) => `
-<div class="hotel">
+<div class="hotel pane">
   <img
     src="${constants.BASE_URL}/content/images/restaurant.png"
     class="img-fluid"

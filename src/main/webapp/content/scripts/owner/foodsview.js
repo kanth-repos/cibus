@@ -2,10 +2,10 @@ import * as constants from '../constants/constants.js'
 import * as foodsApi from '../apiclient/foodapi.js'
 
 const foodHtml = (name, price) => `
-<div class="food card">
+<div class="food card pane">
   <img
     src="${constants.BASE_URL}/content/images/food.png"
-    class="card-img-top"
+    class="card-img-top food-image"
   />
   <div class="card-body">
     <div class="name">
@@ -41,6 +41,12 @@ const onEditClick = async (evt) => {
   window.location = `${constants.BASE_URL}/editFoodForm?foodId=${data.id}`;
 }
 
+const onFoodClick = async (evt) => {
+  let food = $(evt.target).closest('.food')
+  let data = food.data('food')
+  window.location = `${constants.BASE_URL}/food?foodId=${data.id}`
+}
+
 const loadFoods = async () => {
   let container = $('#foodsContainer')
   let hotelId = container.data('hotelid')
@@ -50,6 +56,7 @@ const loadFoods = async () => {
     let element = $(foodHtml(food.name, food.price))
     let actions = element.find(".actions > img").toArray()
     element.data('food', food)
+    element.children('img').on('click', onFoodClick);
     $(actions[0]).on('click', onDeleteClick)
     $(actions[1]).on('click', onEditClick)
     container.append(element)

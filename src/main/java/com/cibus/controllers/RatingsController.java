@@ -3,6 +3,7 @@ package com.cibus.controllers;
 import com.cibus.constants.Constants;
 import com.cibus.database.Database;
 import com.cibus.dtos.RatingDto;
+import com.cibus.exceptions.RowNotFoundException;
 import com.cibus.models.RatingModel;
 import com.cibus.models.UserModel;
 import com.cibus.repository.RatingRepository;
@@ -22,6 +23,7 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
   private Map<String, Object> session;
 
   private Long foodId;
+  private Long userId;
   private Long id;
 
   public void setFoodId(long foodId) {
@@ -30,6 +32,14 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
 
   public Long getFoodId() {
     return foodId;
+  }
+
+  public void setUserId(long userId) {
+    this.userId = userId;
+  }
+
+  public Long getUserId() {
+    return userId;
   }
 
   public void setId(long id) {
@@ -57,17 +67,32 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
   }
 
   /**
-   * GET /ratings?foodId=foodId
+   * GET /ratings?foodId=foodId?userId=userId
    */
   public HttpHeaders index() throws Exception {
     try (var connection = Database.getConnection()) {
       final var ratingRepo = new RatingRepository(connection);
 
-      if (getFoodId() == null) {
+      if (getFoodId() == null && getUserId() == null) {
         return new DefaultHttpHeaders("index").withStatus(400);
       }
 
-      ratings = ratingRepo.getRatingsByFoodId(getFoodId());
+      if (getFoodId() != null && getUserId() != null) {
+        try {
+          rating = ratingRepo.getRating(getUserId(), getFoodId());
+        } catch(RowNotFoundException e) {
+          return new DefaultHttpHeaders("index").withStatus(400);
+        }
+      }
+
+      if (getFoodId() != null) {
+        ratings = ratingRepo.getRatingsByFoodId(getFoodId());
+      }
+
+      if (getUserId() != null) {
+        ratings = ratingRepo.getRatingsByUserId(getUserId());
+      }
+      
       return new DefaultHttpHeaders("index");
     }
   }
@@ -100,8 +125,14 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("create").withStatus(401);
       }
 
-      ratingRepo.addRating(dto);
-      return new DefaultHttpHeaders("create");
+      try {
+        ratingRepo.getRating(dto.getUserId(), dto.getFoodId());
+      } catch (RowNotFoundException e) {
+        ratingRepo.addRating(dto);
+        return new DefaultHttpHeaders("create");
+      }
+
+      return new DefaultHttpHeaders("create").withStatus(409);
     }
   }
 

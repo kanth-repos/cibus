@@ -109,4 +109,43 @@ public class RatingRepository implements IRatingRepository {
       return rating;
     }
   }
+
+  @Override
+  public RatingModel getRating(long userId, long foodId) throws Exception {
+    final var query = "SELECT * FROM ratings where user_id = " + userId + " AND " + "food_id = " + foodId;
+    try (var stmt = connection.createStatement()) {
+      var rs = stmt.executeQuery(query);
+
+      if(!rs.next()) {
+        throw new RowNotFoundException(query);
+      }
+
+      var rating = new RatingModel(rs.getLong(1));
+      rating.setUserId(rs.getLong(2));
+      rating.setFoodId(rs.getLong(3));
+      rating.setRating(rs.getInt(4));
+      rating.setMessage(rs.getString(5));
+      return rating;
+    }
+  }
+
+  @Override
+  public ArrayList<RatingModel> getRatingsByUserId(long userId) throws Exception {
+    final var query = "SELECT * FROM ratings where user_id = " + userId;
+    try (var stmt = connection.createStatement()) {
+      var rs = stmt.executeQuery(query);
+      var ratings = new ArrayList<RatingModel>();
+
+      while (rs.next()) {
+        var rating = new RatingModel(rs.getLong(1));
+        rating.setUserId(rs.getLong(2));
+        rating.setFoodId(rs.getLong(3));
+        rating.setRating(rs.getInt(4));
+        rating.setMessage(rs.getString(5));
+        ratings.add(rating);
+      }
+
+      return ratings;
+    }
+  }
 }

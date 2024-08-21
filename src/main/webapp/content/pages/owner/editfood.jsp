@@ -12,14 +12,13 @@
     <script type="module" src="content/scripts/owner/editfood.js"></script>
 
     <link rel="stylesheet" href="content/styles/global.css" />
-    <link rel="stylesheet" href="content/styles/signup.css" />
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />
     <div
-      class="containter d-flex justify-content-center align-items-center fill-height"
+      class="containter d-flex justify-content-center align-items-center fill-height px-1"
     >
-      <form class="p-3 pane" id="editFoodForm" data-foodid="<s:property value='foodId'/>">
+      <form class="p-3 card" id="editFoodForm" data-foodid="<s:property value='foodId'/>">
         <div class="form-group py-2">
           <label for="nameInput">Name</label>
           <input

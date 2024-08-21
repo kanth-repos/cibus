@@ -5,7 +5,7 @@
     <title>Cibus</title>
     <jsp:include page="/content/components/bootstrap.jsp" />
     <link rel="stylesheet" href="content/styles/global.css" />
-    <link rel="stylesheet" href="content/styles/signup.css" />
+
   </head>
   <body>
     <jsp:include page="/content/components/navbar.jsp" />

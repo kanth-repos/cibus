@@ -19,8 +19,11 @@ export const getOrders = async (param) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -39,8 +42,11 @@ export const postOrder = async (order) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
@@ -57,8 +63,11 @@ export const deleteOrder = async (id) => {
     }
   })
 
-  if (!res.ok) {
-    throw new Error(`res.statusText : ${res.statusText}`)
+  if (res.status != 200) {
+    throw {
+      error: new Error(res.statusText),
+      res: res
+    }
   }
 
   return res.json()
