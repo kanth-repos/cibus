@@ -11,22 +11,23 @@
   <property name="fromWeb"  value="${fromApp}/WEB-INF" />
   <property name="fromLib"  value="lib" />
 
-  <property name="toApp" value="${dist}/cibus" />
-  <property name="toWeb" value="${dist}/cibus/WEB-INF" />
-  <property name="toLib" value="${toWeb}/lib" />
+  <property name="toWeb"     value="${dist}/cibus/WEB-INF" />
   <property name="toClasses" value="${toWeb}/classes" />
-  <property name="toRes" value="${toWeb}/classes" />
+  <property name="toApp"     value="${dist}/cibus" />
+  <property name="toMeta"    value="${dist}/cibus/META-INF" />
+  <property name="toRes"     value="${toWeb}/classes" />
+  <property name="toLib"     value="${toWeb}/lib" />
 
   <!-- Used to clean the folder that created during build-->
   <target name="clean">
     <delete dir="${dist}" />
-    <delete dir="${out}" />
   </target>
 
   <!-- Used to make folders for build and dist-->
   <target name="mkdir" depends="clean">
     <mkdir dir="${dist}" />
     <mkdir dir="${out}" />
+
     <mkdir dir="${toWeb}" />
     <mkdir dir="${toLib}" />
     <mkdir dir="${toClasses}" />
@@ -57,9 +58,9 @@
   <!-- Used to create war file-->
   <target name="war" depends="build">
     <war destfile="${out}/cibus.war" webxml="${fromWeb}/web.xml" >
-      <fileset dir="${toApp}" excludes="WEB-INF/**" />
-      <metainf dir="${fromMeta}" />
-      <classes dir="${toClasses}" />
+      <fileset dir="${toApp}" excludes="WEB-INF, META-INF" />
+      <webinf dir="${toWeb}" excludes="web.xml"/>
+      <metainf dir="${toMeta}" />
       <lib dir="${fromLib}" >
         <exclude name="javax.servlet-api-4.0.1.jar" />
       </lib>

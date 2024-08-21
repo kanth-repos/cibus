@@ -17,8 +17,14 @@
   <constant name="struts.convention.package.locators" value="controllers"/>
 
   <constant name="struts.devMode" value="true" /> 
+  
+  <constant name="struts.ognl.allowStaticMethodAccess" value="true" /> 
 
   <package name="default" namespace="/" extends="struts-default">
+    <result-types>
+      <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+    </result-types>
+
     <interceptors>
       <interceptor
         class="com.cibus.intercept.AuthInterceptor"
@@ -45,30 +51,30 @@
     <default-interceptor-ref name="cibusDefaultStack"/>
 
     <global-results>
-      <result name="signin" type="redirect">signinForm</result>
+      <result name="signin" type="tiles">signinForm</result>
     </global-results>
 
     <action name="index">
       <interceptor-ref name="defaultStack"/>
-      <result type="dispatcher">/content/index.jsp</result>
+      <result type="tiles">index</result>
     </action>
 
     <action name="signupForm">
       <interceptor-ref name="defaultStack"/>
-      <result type="dispatcher">/content/pages/signup.jsp</result>
+      <result type="tiles">signupForm</result>
     </action>
 
     <action
       class="com.cibus.actions.SignUpController"
       name="signup">
       <interceptor-ref name="defaultStack"/>
-      <result name="input" type="dispatcher">/content/pages/signup.jsp</result>
-      <result name="success" type="dispatcher">/content/pages/created.jsp</result>
+      <result name="input" type="tiles">signupForm</result>
+      <result name="success" type="tiles">created</result>
     </action>
 
     <action name="signinForm">
       <interceptor-ref name="defaultStack"/>
-      <result type="dispatcher">/content/pages/signin.jsp</result>
+      <result type="tiles">signinForm</result>
     </action>
 
     <action
@@ -76,7 +82,7 @@
       name="signin">
       <interceptor-ref name="defaultStack"/>
       <result name="success" type="redirect">index</result>
-      <result name="input" type="dispatcher">/content/pages/signin.jsp</result>
+      <result name="input" type="tiles">signinForm</result>
     </action>
 
     <action
@@ -90,21 +96,21 @@
       class="com.cibus.actions.DashboardController"
       name="dashboard">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">/content/pages/owner/dashboard.jsp</result>
-      <result name="user" type="dispatcher">/content/pages/user/dashboard.jsp</result>
+      <result name="owner" type="tiles">ownerDashboard</result>
+      <result name="user" type="tiles">userDashboard</result>
     </action>
 
     <action name="createHotelForm">
       <interceptor-ref name="authStack"/>
-      <result type="dispatcher">/content/pages/owner/createhotel.jsp</result>
+      <result type="tiles">createhotel</result>
     </action>
 
     <action 
       class="com.cibus.actions.HotelIdController"
       name="hotelOrders">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">
-        /content/pages/owner/ordersview.jsp
+      <result name="owner" type="tiles">
+        hotelOrders
       </result>
     </action>
 
@@ -112,8 +118,8 @@
       class="com.cibus.actions.HotelIdController"
       name="createFoodForm">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">
-        /content/pages/owner/createfood.jsp
+      <result name="owner" type="tiles">
+        createFoodForm
       </result>
     </action>
 
@@ -121,41 +127,39 @@
       class="com.cibus.actions.HotelIdController"
       name="hotelFoods">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">
-        /content/pages/owner/foodsview.jsp
+      <result name="owner" type="tiles">
+        ownerHotelFoods
       </result>
-      <result name="user" type="dispatcher">
-        /content/pages/user/foodsview.jsp
+      <result name="user" type="tiles">
+        userHotelFoods
       </result>
     </action>
 
     <action name="usercart">
       <interceptor-ref name="authStack"/>
-      <result type="dispatcher">
-        /content/pages/user/cartview.jsp
+      <result type="tiles">
+        userCart
       </result>
     </action>
 
     <action name="userorders">
       <interceptor-ref name="authStack"/>
-      <result type="dispatcher">
-        /content/pages/user/ordersview.jsp
+      <result type="tiles">
+        userOrders
       </result>
     </action>
 
     <action name="account">
       <interceptor-ref name="authStack"/>
-      <result type="dispatcher">
-        /content/pages/account.jsp
-      </result>
+      <result type="tiles">account</result>
     </action>
 
     <action
       class="com.cibus.actions.HotelIdController"
       name="editHotelForm">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">
-        /content/pages/owner/edithotel.jsp
+      <result name="owner" type="tiles">
+        editHotelForm
       </result>
     </action>
 
@@ -163,15 +167,15 @@
       class="com.cibus.actions.FoodIdController"
       name="editFoodForm">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">
-        /content/pages/owner/editfood.jsp
+      <result name="owner" type="tiles">
+        editFoodForm
       </result>
     </action>
 
     <action name="editUserForm">
       <interceptor-ref name="authStack"/>
-      <result name="success" type="dispatcher">
-        /content/pages/edituser.jsp
+      <result name="success" type="tiles">
+        editUserForm
       </result>
     </action>
 
@@ -179,11 +183,11 @@
       class="com.cibus.actions.FoodIdController"
       name="food">
       <interceptor-ref name="authStack"/>
-      <result name="owner" type="dispatcher">
-        /content/pages/owner/foodview.jsp
+      <result name="owner" type="tiles">
+        ownerFood
       </result>
-      <result name="user" type="dispatcher">
-        /content/pages/user/foodview.jsp
+      <result name="user" type="tiles">
+        userFood
       </result>
     </action>
 
@@ -191,8 +195,8 @@
     class="com.cibus.actions.RatingIdController"
     name="editrating">
     <interceptor-ref name="authStack"/>
-    <result name="user" type="dispatcher">
-      /content/pages/user/editrating.jsp
+    <result name="user" type="tiles">
+      editRating
     </result>
   </action>
   </package>

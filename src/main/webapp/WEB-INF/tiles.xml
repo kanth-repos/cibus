@@ -1,0 +1,107 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <definition name="index" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/index/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/index/body.jsp" />
+  </definition>
+
+  <definition name="signinForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/signin/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/signin/body.jsp" />
+  </definition>
+
+  <definition name="signupForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/signup/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/signup/body.jsp" />
+  </definition>
+
+  <definition name="created" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/created/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/created/body.jsp" />
+  </definition>
+
+  <definition name="ownerDashboard" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/dashboard/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/dashboard/body.jsp" />
+  </definition>
+
+  <definition name="userDashboard" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/dashboard/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/dashboard/body.jsp" />
+  </definition>
+
+  <definition name="createHotelForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/createhotel/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/createhotel/body.jsp" />
+  </definition>
+
+  <definition name="hotelOrders" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/ordersview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/ordersview/body.jsp" />
+  </definition>
+
+  <definition name="createFoodForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/createfood/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/createfood/body.jsp" />
+  </definition>
+
+  <definition name="ownerHotelFoods" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/foodsview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/foodsview/body.jsp" />
+  </definition>
+
+  <definition name="userHotelFoods" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/foodsview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/foodsview/body.jsp" />
+  </definition>
+
+  <definition name="userCart" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/cart/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/cart/body.jsp" />
+  </definition>
+
+  <definition name="userOrders" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/ordersview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/ordersview/body.jsp" />
+  </definition>
+
+  <definition name="account" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/account/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/account/body.jsp" />
+  </definition>
+
+  <definition name="account" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/account/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/account/body.jsp" />
+  </definition>
+
+  <definition name="editHotelForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/edithotel/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/edithotel/body.jsp" />
+  </definition>
+
+  <definition name="editFoodForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/editfood/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/editfood/body.jsp" />
+  </definition>
+
+  <definition name="editUserForm" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/edituser/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/edituser/body.jsp" />
+  </definition>
+
+  <definition name="ownerFood" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/owner/foodview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/owner/foodview/body.jsp" />
+  </definition>
+
+  <definition name="userFood" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/foodview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/foodview/body.jsp" />
+  </definition>
+
+  <definition name="editRating" template="/WEB-INF/content/layouts/cibuslayout.jsp">
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/editrating/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/editrating/body.jsp" />
+  </definition>
+</tiles-definitions>

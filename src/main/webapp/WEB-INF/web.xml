@@ -2,8 +2,22 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1">
+  <context-param>
+    <param-name>org.apache.tiles.definition.DefinitionsFactory.DEFINITIONS_CONFIG</param-name>
+    <param-value>/WEB-INF/tiles.xml</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>WEB_CONTENTS</param-name>
+    <param-value>/WEB-INF/content</param-value>
+  </context-param>
+
   <listener>
     <listener-class>com.cibus.listeners.ServletContextObserver</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
   </listener>
 
   <filter>
