@@ -7,28 +7,31 @@ ALTER TABLE orders AUTO_INCREMENT = 1;
 ALTER TABLE carts AUTO_INCREMENT = 1;
 ALTER TABLE ratings AUTO_INCREMENT = 1;
 
+DECLARE @OwnerId INT;
+SET @OwnerId = 2;
+
 -- Insert data into hotels table
 INSERT INTO hotels (name, city, owner_id) VALUES
-('Sunrise Inn', 'New York', 2),
-('Moonlight Suites', 'Los Angeles', 2),
-('Starlight Hotel', 'Chicago', 2),
-('Oceanview Hotel', 'Miami', 2),
-('Mountain Lodge', 'Denver', 2),
-('Desert Oasis', 'Las Vegas', 2),
-('City Lights', 'San Francisco', 2),
-('Riverside Inn', 'Austin', 2),
-('Lakeside Hotel', 'Seattle', 2),
-('Hilltop Hotel', 'Portland', 2),
-('Sunny Meadows', 'Phoenix', 2),
-('Coastal Breeze', 'San Diego', 2),
-('Forest Retreat', 'Boulder', 2),
-('Urban Escape', 'Dallas', 2),
-('Countryside Inn', 'Nashville', 2),
-('Beachfront Hotel', 'Virginia Beach', 2),
-('Downtown Suites', 'Atlanta', 2),
-('Valley View', 'Salt Lake City', 2),
-('Harbor Hotel', 'Boston', 2),
-('Grand Tower', 'Houston', 2);
+('Sunrise Inn', 'New York', @OwnerId),
+('Moonlight Suites', 'Los Angeles', @OwnerId),
+('Starlight Hotel', 'Chicago', @OwnerId),
+('Oceanview Hotel', 'Miami', @OwnerId),
+('Mountain Lodge', 'Denver', @OwnerId),
+('Desert Oasis', 'Las Vegas', @OwnerId),
+('City Lights', 'San Francisco', @OwnerId),
+('Riverside Inn', 'Austin', @OwnerId),
+('Lakeside Hotel', 'Seattle', @OwnerId),
+('Hilltop Hotel', 'Portland', @OwnerId),
+('Sunny Meadows', 'Phoenix', @OwnerId),
+('Coastal Breeze', 'San Diego', @OwnerId),
+('Forest Retreat', 'Boulder', @OwnerId),
+('Urban Escape', 'Dallas', @OwnerId),
+('Countryside Inn', 'Nashville', @OwnerId),
+('Beachfront Hotel', 'Virginia Beach', @OwnerId),
+('Downtown Suites', 'Atlanta', @OwnerId),
+('Valley View', 'Salt Lake City', @OwnerId),
+('Harbor Hotel', 'Boston', @OwnerId),
+('Grand Tower', 'Houston', @OwnerId);
 
 -- Insert data into foods table
 INSERT INTO foods (hotel_id, name, price) VALUES
