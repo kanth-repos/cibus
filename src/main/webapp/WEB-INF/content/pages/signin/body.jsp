@@ -5,7 +5,7 @@
 <div
   class="containter d-flex justify-content-center align-items-center fill-height px-1"
 >
-  <form action="signin" method="post" class="p-3 card" id="form">
+  <form action="signin" method="post" class="p-3 card" id="form" style="min-width: 400px;">
     <div class="form-group py-2">
       <label for="emailInput">Email address</label>
       <input

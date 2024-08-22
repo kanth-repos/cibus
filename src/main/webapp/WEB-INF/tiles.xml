@@ -56,18 +56,13 @@
   </definition>
 
   <definition name="userCart" template="/WEB-INF/content/layouts/cibuslayout.jsp">
-    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/cart/header.jsp" />
-    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/cart/body.jsp" />
+    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/cartview/header.jsp" />
+    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/cartview/body.jsp" />
   </definition>
 
   <definition name="userOrders" template="/WEB-INF/content/layouts/cibuslayout.jsp">
     <put-attribute name="headerComponents" value="/WEB-INF/content/pages/user/ordersview/header.jsp" />
     <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/user/ordersview/body.jsp" />
-  </definition>
-
-  <definition name="account" template="/WEB-INF/content/layouts/cibuslayout.jsp">
-    <put-attribute name="headerComponents" value="/WEB-INF/content/pages/account/header.jsp" />
-    <put-attribute name="bodyComponents" value="/WEB-INF/content/pages/account/body.jsp" />
   </definition>
 
   <definition name="account" template="/WEB-INF/content/layouts/cibuslayout.jsp">

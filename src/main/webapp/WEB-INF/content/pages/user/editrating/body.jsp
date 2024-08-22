@@ -8,8 +8,8 @@
   id="ratingIdHolder"
   style="max-width: 900px"
 >
-  <form class="card" id="editRatingForm" class="m-5">
-    <div class="text-center">Add an Review</div>
+  <form class="card p-3" id="editRatingForm" class="m-5">
+    <div class="text-center">Update Review</div>
     <div class="form-group py-2">
       <label for="starInput">Star</label>
       <select class="form-control" name="star" id="starInput">
