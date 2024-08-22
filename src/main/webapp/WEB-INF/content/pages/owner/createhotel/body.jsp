@@ -5,7 +5,7 @@
 <div
   class="containter d-flex justify-content-center align-items-center fill-height px-1"
 >
-  <form class="p-3 pane" id="createHotelForm">
+  <form class="p-3 card" id="createHotelForm">
     <div class="form-group py-2">
       <label for="nameInput">Name</label>
       <input

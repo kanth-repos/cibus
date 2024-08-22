@@ -1,6 +1,10 @@
 package com.cibus.dtos;
 
 import java.io.Serializable;
+import javax.validation.constraints.*;
+
+import com.cibus.annotations.CreateGroup;
+import com.cibus.annotations.UpdateGroup;
 
 public class CartDto implements Serializable {
   // Java Bean for Cart
@@ -29,7 +33,13 @@ public class CartDto implements Serializable {
   }
 
   // Model attributes for Cart
+  @NotNull(groups = {CreateGroup.class, UpdateGroup.class})
   private Long userId;
+
+  @NotNull(groups = {CreateGroup.class, UpdateGroup.class})
   private Long foodId;
-  private int quantity;
+
+  @NotNull(groups = {CreateGroup.class})
+  @Min(value=1, groups = {CreateGroup.class, UpdateGroup.class})
+  private Integer quantity;
 }

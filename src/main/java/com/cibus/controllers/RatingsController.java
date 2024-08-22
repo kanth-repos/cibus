@@ -8,6 +8,7 @@ import com.cibus.models.RatingModel;
 import com.cibus.models.UserModel;
 import com.cibus.repository.RatingRepository;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
@@ -121,6 +122,10 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
       final var ratingRepo = new RatingRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
+      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
+      }
+
       if (user.getId() != dto.getUserId()) {
         return new DefaultHttpHeaders("create").withStatus(401);
       }
@@ -143,6 +148,10 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var ratingRepo = new RatingRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
+
+      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
+      }
 
       if (user.getId() != dto.getUserId()) {
         return new DefaultHttpHeaders("update").withStatus(401);

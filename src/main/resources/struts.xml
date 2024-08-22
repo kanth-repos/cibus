@@ -102,7 +102,7 @@
 
     <action name="createHotelForm">
       <interceptor-ref name="authStack"/>
-      <result type="tiles">createhotel</result>
+      <result type="tiles">createHotelForm</result>
     </action>
 
     <action 

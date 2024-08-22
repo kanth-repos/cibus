@@ -6,7 +6,7 @@
   class="containter d-flex justify-content-center align-items-center fill-height px-1"
 >
   <form
-    class="p-3 pane"
+    class="p-3 card"
     id="createFoodForm"
     data-hotelid="<s:property value='hotelId'/>"
   >

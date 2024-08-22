@@ -2,6 +2,14 @@ package com.cibus.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.cibus.annotations.CreateGroup;
+import com.cibus.annotations.UpdateGroup;
+
 public class RatingDto implements Serializable {
   // Java Bean for Rating
   public void setUserId(Long userId) {
@@ -37,8 +45,18 @@ public class RatingDto implements Serializable {
   }
 
   // Model attributes for Rating
+  @NotNull(groups = {CreateGroup.class, UpdateGroup.class})
   private Long userId;
+
+  @NotNull(groups = {CreateGroup.class, UpdateGroup.class})
   private Long foodId;
+  
+  @NotNull(groups = {CreateGroup.class})
+  @Min(value=1, groups = {CreateGroup.class, UpdateGroup.class})
+  @Max(value=5, groups = {CreateGroup.class, UpdateGroup.class})
   private Integer rating;
+  
+  @NotNull(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class})
   private String message;
 }

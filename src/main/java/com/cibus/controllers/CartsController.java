@@ -7,6 +7,7 @@ import com.cibus.models.CartModel;
 import com.cibus.models.UserModel;
 import com.cibus.repository.CartRepository;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,10 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
       final var cartRepo = new CartRepository(connection);
       final var user = (UserModel)session.get(Constants.USER_SESSION);
   
+      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
+      }
+
       if (user.getId() != dto.getUserId()) {
         return new DefaultHttpHeaders("create").withStatus(401);
       }
@@ -121,6 +126,10 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
   
       if (getId() == null) {
         return new DefaultHttpHeaders("update").withStatus(400);
+      }
+
+      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
       }
   
       if (user.getId() != dto.getUserId()) {

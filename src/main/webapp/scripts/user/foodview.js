@@ -81,7 +81,11 @@ const onCartClick = async (evt) => {
   let food = $(evt.target).closest('.food')
   let data = food.data('food')
   let user = await userApi.getUser()
-  let quantity = window.prompt("Enter Quantity", 1)
+  let quantity = 0;
+
+  // while(quantity <= 0) {
+    quantity = window.prompt("Enter Quantity", 1)
+  // }
 
   let cart = {
     userId: user.id,

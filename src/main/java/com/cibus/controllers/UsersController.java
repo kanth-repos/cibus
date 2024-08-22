@@ -5,6 +5,7 @@ import com.cibus.database.Database;
 import com.cibus.dtos.UserDto;
 import com.cibus.models.UserModel;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.Map;
 import org.apache.struts2.action.SessionAware;
@@ -79,6 +80,10 @@ public class UsersController implements ModelDriven<Object>, SessionAware {
 
       if (getId() == null) {
         return new DefaultHttpHeaders("update").withStatus(400);
+      }
+
+      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
       }
 
       if (user.getId() != getId()) {

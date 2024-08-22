@@ -7,6 +7,7 @@ import com.cibus.models.OrderModel;
 import com.cibus.models.UserModel;
 import com.cibus.repository.OrderRepository;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +123,10 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
     try (var connection = Database.getConnection()) {
       final var orderRepo = new OrderRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
+
+      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
+      }
 
       if (user.getId() != dto.getUserId()) {
         return new DefaultHttpHeaders("create").withStatus(401);

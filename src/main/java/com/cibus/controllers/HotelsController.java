@@ -7,6 +7,7 @@ import com.cibus.models.HotelModel;
 import com.cibus.models.UserModel;
 import com.cibus.repository.HotelRepository;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +104,10 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
       final var user = (UserModel) session.get(Constants.USER_SESSION);
       final var repo = new HotelRepository(connection);
 
+      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
+      }
+
       if (user.getType().equalsIgnoreCase("user")) {
         return new DefaultHttpHeaders("create").withStatus(403);
       }
@@ -128,6 +133,10 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
 
       if (getId() == null) {
         return new DefaultHttpHeaders("update").withStatus(400);
+      }
+
+      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
       }
 
       if (!userRepo.isOwnerOfHotel(user.getId(), getId())) {

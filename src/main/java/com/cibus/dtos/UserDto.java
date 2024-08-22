@@ -2,6 +2,11 @@ package com.cibus.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.cibus.annotations.CreateGroup;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class UserDto implements Serializable {
@@ -49,9 +54,23 @@ public class UserDto implements Serializable {
   }
 
   // Model attributes for User
+  @NotNull(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class})
   private String type;
+
+  @NotNull(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class})
   private String name;
+
+  @NotNull(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class})
   private String mobile;
+
+  @NotNull(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class})
   private String email;
+
+  @NotNull(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class})
   private String password;
 };

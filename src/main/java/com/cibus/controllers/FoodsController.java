@@ -7,6 +7,7 @@ import com.cibus.models.FoodModel;
 import com.cibus.models.UserModel;
 import com.cibus.repository.FoodRepository;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,10 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
       final var usersRepo = new UserRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
+      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
+      }
+
       if (!usersRepo.isOwnerOfHotel(user.getId(), dto.getHotelId())) {
         return new DefaultHttpHeaders("create").withStatus(401);
       }
@@ -119,6 +124,10 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
 
       if (getId() == null) {
         return new DefaultHttpHeaders("update").withStatus(400);
+      }
+
+      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
+        return new DefaultHttpHeaders("create").withStatus(400);
       }
 
       if (!usersRepo.isOwnerOfFood(user.getId(), getId())) {
