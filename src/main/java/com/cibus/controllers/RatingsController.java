@@ -162,10 +162,17 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
       }
 
       rating = ratingRepo.getRating(getId());
-      if(dto.getUserId()!=null)rating.setUserId(dto.getUserId());
-      if(dto.getRating()!=null)rating.setRating(dto.getRating());
-      if(dto.getMessage()!=null)rating.setMessage(dto.getMessage());
-      if(dto.getFoodId()!=null)rating.setFoodId(dto.getFoodId());
+      
+      rating.setUserId(dto.getUserId());
+      rating.setFoodId(dto.getFoodId());
+      
+      if(dto.getRating()!=null) {
+        rating.setRating(dto.getRating());
+      }
+
+      if(dto.getMessage()!=null) {
+        rating.setMessage(dto.getMessage());
+      }
 
       ratingRepo.updateRating(rating);
 

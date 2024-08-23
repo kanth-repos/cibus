@@ -135,9 +135,16 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
       }
 
       food = foodsRepo.getFood(getId());
-      if(dto.getHotelId()!=null) food.setHotelId(dto.getHotelId());
-      if(dto.getName()!=null) food.setName(dto.getName());
-      if(dto.getPrice() !=null) food.setPrice(dto.getPrice());
+
+      food.setHotelId(dto.getHotelId());
+
+      if(dto.getName()!=null) {
+        food.setName(dto.getName());
+      }
+
+      if(dto.getPrice() !=null) {
+        food.setPrice(dto.getPrice());
+      }
 
       foodsRepo.updateFood(food);
 

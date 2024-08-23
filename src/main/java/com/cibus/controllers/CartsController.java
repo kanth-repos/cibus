@@ -141,9 +141,13 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
       }
   
       cart = cartRepo.getCart(getId());
-      if(dto.getQuantity()!=null) cart.setQuantity(dto.getQuantity());
-      if(dto.getUserId()!=null) cart.setUserId(dto.getUserId());
-      if(dto.getFoodId()!=null) cart.setFoodId(dto.getFoodId());
+
+      cart.setUserId(dto.getUserId());
+      cart.setFoodId(dto.getFoodId());
+
+      if(dto.getQuantity()!=null) {
+        cart.setQuantity(dto.getQuantity());
+      }
   
       cartRepo.updateCart(cart);
   

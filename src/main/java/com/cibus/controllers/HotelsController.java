@@ -145,12 +145,15 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
 
       hotel = hotelRepo.getHotel(getId());
 
-      if (dto.getOwnerId() != null)
-        hotel.setOwnerId(dto.getOwnerId());
-      if (dto.getCity() != null)
+      hotel.setOwnerId(dto.getOwnerId());
+      
+      if (dto.getCity() != null) {
         hotel.setCity(dto.getCity());
-      if (dto.getName() != null)
+      }
+
+      if (dto.getName() != null) {
         hotel.setName(dto.getName());
+      }
 
       hotelRepo.updateHotel(hotel);
 
