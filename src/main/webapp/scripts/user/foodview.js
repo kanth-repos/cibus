@@ -28,7 +28,7 @@ const foodHtml = (name, price) => `
 </a>
 `
 
-const ratingHtml = (rating, user) => `
+const ratingHtml = (rating, user, account) => `
 <div class="rating d-flex flex-column gap-2 mx-5 pane py-3">
   <div class="star">
     ${star(rating.rating)}
@@ -39,7 +39,7 @@ const ratingHtml = (rating, user) => `
   <div style="color: grey;">
     by ${user.name}
   </div>
-  <div class="actions" ${rating.userId!=user.id ? "hidden":""}>
+  <div class="actions" ${rating.userId!=account.id ? "hidden":""}>
     <img src="${constants.BASE_URL}/images/delete.png"
       class="img-fluid"
       title="delete"
@@ -81,11 +81,7 @@ const onCartClick = async (evt) => {
   let food = $(evt.target).closest('.food')
   let data = food.data('food')
   let user = await userApi.getUser()
-  let quantity = 0;
-
-  // while(quantity <= 0) {
-    quantity = window.prompt("Enter Quantity", 1)
-  // }
+  let quantity = window.prompt("Enter Quantity", 1)
 
   let cart = {
     userId: user.id,
@@ -162,7 +158,7 @@ const loadRatings = async () => {
 
   for(let rating of ratings) {
     let user = await userApi.getUser(rating.userId)
-    let element = $(ratingHtml(rating, user))
+    let element = $(ratingHtml(rating, user, accountUser))
     let actions = element.find(".actions > img").toArray()
     element.data('rating', rating)
     $(actions[0]).on('click', onDeleteClick)
