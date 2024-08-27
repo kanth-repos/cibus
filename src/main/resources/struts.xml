@@ -59,6 +59,11 @@
       <result type="tiles">index</result>
     </action>
 
+    <action name="">
+      <interceptor-ref name="cibusDefaultStack"/>
+      <result type="redirect">index</result>
+    </action>
+
     <action name="signupForm">
       <interceptor-ref name="cibusDefaultStack"/>
       <result type="tiles">signupForm</result>
