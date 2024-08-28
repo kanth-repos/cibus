@@ -3,7 +3,7 @@ export const starUnchecked = () => `
 `
 
 export const starChecked = () => `
-  <span class="fa fa-star style="color:orange;"></span>
+  <span class="fa fa-star" style="color:orange;"></span>
 `
 
 export default function star(count) {
