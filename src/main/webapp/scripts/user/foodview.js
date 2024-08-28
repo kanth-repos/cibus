@@ -59,11 +59,11 @@ const formHtml = () => `
     <input class="form-control" name="star" id="starInput" value="1" type="hidden">
     </input>
     <div class="star-container d-flex flex-row gap-1 justify-content-center">
-      <i class="fa fa-star fa-xl" data-order="1"></i>
-      <i class="fa fa-star fa-xl" data-order="2"></i>
-      <i class="fa fa-star fa-xl" data-order="3"></i>
-      <i class="fa fa-star fa-xl" data-order="4"></i>
-      <i class="fa fa-star fa-xl" data-order="5"></i>
+      <i class="fa fa-star" data-order="1" style="color:gold;"></i>
+      <i class="fa fa-star" data-order="2"></i>
+      <i class="fa fa-star" data-order="3"></i>
+      <i class="fa fa-star" data-order="4"></i>
+      <i class="fa fa-star" data-order="5"></i>
     </div>
   </div>
   <div class="form-group py-2">
