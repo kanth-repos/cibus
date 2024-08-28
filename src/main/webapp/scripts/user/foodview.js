@@ -56,8 +56,7 @@ const formHtml = () => `
 <form id="ratingForm" class="m-5">
   <div class="text-center">Add an Review</div>
   <div class="form-group py-2">
-    <input class="form-control" name="star" id="starInput" value="1" type="hidden">
-    </input>
+    <input class="form-control" name="star" id="starInput" value="1" type="hidden"/>
     <div class="star-container d-flex flex-row gap-1 justify-content-center">
       <i class="fa fa-star" data-order="1" style="color:gold;"></i>
       <i class="fa fa-star" data-order="2"></i>
