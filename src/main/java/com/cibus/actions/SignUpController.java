@@ -4,6 +4,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.cibus.dtos.UserDto;
 import com.cibus.database.Database;
 import com.cibus.repository.UserRepository;
+import com.cibus.utility.Utility;
+
 import java.util.Arrays;
 
 public class SignUpController extends ActionSupport {
@@ -30,6 +32,10 @@ public class SignUpController extends ActionSupport {
 
     if (user.getEmail() == null || user.getEmail().isEmpty()) {
       addFieldError("user.email", "Email is required");
+    }
+
+    if(!Utility.validateCreateGroupDto(user).isEmpty()) {
+      addActionError("Validation Failed");
     }
   }
 

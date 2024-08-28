@@ -2,6 +2,7 @@ package com.cibus.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -68,6 +69,7 @@ public class UserDto implements Serializable {
 
   @NotNull(groups = {CreateGroup.class})
   @NotBlank(groups = {CreateGroup.class})
+  @Email
   private String email;
 
   @NotNull(groups = {CreateGroup.class})
