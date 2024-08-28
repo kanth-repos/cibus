@@ -1,6 +1,6 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %> <%@ page
+contentType="text/html; charset=UTF-8" %> <%@ taglib prefix="s"
+uri="/struts-tags" %>
 
 <div
   class="containter d-flex flex-column justify-content-center fill-height mx-auto px-1"
@@ -11,14 +11,20 @@
   <form class="card p-3" id="editRatingForm" class="m-5">
     <div class="text-center">Update Review</div>
     <div class="form-group py-2">
-      <label for="starInput">Star</label>
-      <select class="form-control" name="star" id="starInput">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
+      <input
+        class="form-control"
+        name="star"
+        id="starInput"
+        value="1"
+        type="hidden"
+      />
+      <div class="star-container d-flex flex-row gap-1 justify-content-center">
+        <i class="fa fa-star" data-order="1"></i>
+        <i class="fa fa-star" data-order="2"></i>
+        <i class="fa fa-star" data-order="3"></i>
+        <i class="fa fa-star" data-order="4"></i>
+        <i class="fa fa-star" data-order="5"></i>
+      </div>
     </div>
     <div class="form-group py-2">
       <label for="msgInput">Message</label>

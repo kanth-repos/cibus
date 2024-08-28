@@ -56,14 +56,15 @@ const formHtml = () => `
 <form id="ratingForm" class="m-5">
   <div class="text-center">Add an Review</div>
   <div class="form-group py-2">
-  <label for="starInput">Star</label>
-    <select class="form-control" name="star" id="starInput">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
+    <input class="form-control" name="star" id="starInput" value="1" type="hidden">
+    </input>
+    <div class="star-container d-flex flex-row gap-1 justify-content-center">
+      <i class="fa fa-star fa-xl" data-order="1"></i>
+      <i class="fa fa-star fa-xl" data-order="2"></i>
+      <i class="fa fa-star fa-xl" data-order="3"></i>
+      <i class="fa fa-star fa-xl" data-order="4"></i>
+      <i class="fa fa-star fa-xl" data-order="5"></i>
+    </div>
   </div>
   <div class="form-group py-2">
     <label for="msgInput">Message</label>
@@ -91,6 +92,20 @@ const onCartClick = async (evt) => {
 
   await cartApi.postCart(cart)
   window.alert("Added to Cart")
+}
+
+const onStarClick = async (evt) => {
+  let order = +$(evt.target).data('order');
+
+  for(let i = 1; i <= order; ++i) {
+    $(`.star-container > i:nth-child(${i})`).css('color', 'gold');
+  }
+
+  for(let i = order + 1; i <= 5; ++i) {
+    $(`.star-container > i:nth-child(${i})`).css('color', 'black');
+  }
+
+  $("#starInput").val(order);
 }
 
 const onSubmit = async (evt) => {
@@ -184,4 +199,6 @@ $(async () => {
   await loadFood();
   await loadRatings();
   await loadForm();
+
+  $(".star-container > i").on('click', onStarClick);
 })

@@ -23,3 +23,7 @@
   justify-content: center;
   padding: 5px;
 }
+
+.star-container > i:hover {
+  cursor: pointer;
+}
