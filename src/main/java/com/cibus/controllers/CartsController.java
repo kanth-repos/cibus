@@ -11,6 +11,10 @@ import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.struts2.action.SessionAware;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
@@ -20,6 +24,8 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
   public void withSession(Map<String, Object> session) {
     this.session = session;
   }
+
+  private Set<ConstraintViolation<CartDto>> violations;
 
   private Map<String, Object> session;
   private CartDto dto = new CartDto();
@@ -39,7 +45,9 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
 
   @Override
   public Object getModel() {
-    if (carts != null) {
+    if (violations != null) {
+      return violations;
+    } else if (carts != null) {
       return carts;
     } else if (cart != null) {
       return cart;
@@ -94,7 +102,9 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
       final var cartRepo = new CartRepository(connection);
       final var user = (UserModel)session.get(Constants.USER_SESSION);
   
-      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+      violations = Utility.validateCreateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
         return new DefaultHttpHeaders("create").withStatus(400);
       }
 
@@ -128,8 +138,10 @@ public class CartsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
-        return new DefaultHttpHeaders("create").withStatus(400);
+      violations = Utility.validateUpdateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
+        return new DefaultHttpHeaders("update").withStatus(400);
       }
   
       if (user.getId() != dto.getUserId()) {

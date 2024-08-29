@@ -8,11 +8,17 @@ import com.cibus.repository.UserRepository;
 import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.struts2.action.SessionAware;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 public class UsersController implements ModelDriven<Object>, SessionAware {
+  private Set<ConstraintViolation<UserDto>> violations;
+
   private Map<String, Object> session;
   private UserDto dto = new UserDto();
   private UserModel user;
@@ -34,7 +40,9 @@ public class UsersController implements ModelDriven<Object>, SessionAware {
 
   @Override
   public Object getModel() {
-    if (user != null) {
+    if (violations != null) {
+      return violations;
+    } else if (user != null) {
       return user;
     } else {
       return dto;
@@ -82,8 +90,10 @@ public class UsersController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
-        return new DefaultHttpHeaders("create").withStatus(400);
+      violations = Utility.validateUpdateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
+        return new DefaultHttpHeaders("update").withStatus(400);
       }
 
       if (user.getId() != getId()) {

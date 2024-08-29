@@ -12,11 +12,17 @@ import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.struts2.action.SessionAware;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 public class RatingsController implements ModelDriven<Object>, SessionAware {
+  private Set<ConstraintViolation<RatingDto>> violations;
+
   private RatingDto dto = new RatingDto();
   private List<RatingModel> ratings;
   private RatingModel rating;
@@ -58,7 +64,9 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
 
   @Override
   public Object getModel() {
-    if (ratings != null) {
+    if (violations != null) {
+      return violations;
+    } else if (ratings != null) {
       return ratings;
     } else if (rating != null) {
       return rating;
@@ -122,7 +130,9 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
       final var ratingRepo = new RatingRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+      violations = Utility.validateCreateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
         return new DefaultHttpHeaders("create").withStatus(400);
       }
 
@@ -149,8 +159,10 @@ public class RatingsController implements ModelDriven<Object>, SessionAware {
       final var ratingRepo = new RatingRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
-        return new DefaultHttpHeaders("create").withStatus(400);
+      violations = Utility.validateUpdateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
+        return new DefaultHttpHeaders("update").withStatus(400);
       }
 
       if (user.getId() != dto.getUserId()) {

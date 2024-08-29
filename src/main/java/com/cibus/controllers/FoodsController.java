@@ -11,11 +11,17 @@ import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.struts2.action.SessionAware;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 public class FoodsController implements ModelDriven<Object>, SessionAware {
+  private Set<ConstraintViolation<FoodDto>> violations;
+
   private FoodDto dto = new FoodDto();
   private List<FoodModel> foods;
   private FoodModel food;
@@ -48,7 +54,9 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
 
   @Override
   public Object getModel() {
-    if (foods != null) {
+    if (violations != null) {
+      return violations;
+    } else if (foods != null) {
       return foods;
     } else if (food != null) {
       return food;
@@ -99,7 +107,9 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
       final var usersRepo = new UserRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+      violations = Utility.validateCreateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
         return new DefaultHttpHeaders("create").withStatus(400);
       }
 
@@ -126,8 +136,10 @@ public class FoodsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
-        return new DefaultHttpHeaders("create").withStatus(400);
+      violations = Utility.validateUpdateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
+        return new DefaultHttpHeaders("update").withStatus(400);
       }
 
       if (!usersRepo.isOwnerOfFood(user.getId(), getId())) {

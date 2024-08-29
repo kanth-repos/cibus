@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.cibus.annotations.CreateGroup;
+import com.cibus.annotations.UpdateGroup;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -56,23 +57,23 @@ public class UserDto implements Serializable {
 
   // Model attributes for User
   @NotNull(groups = {CreateGroup.class})
-  @NotBlank(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class, UpdateGroup.class})
   private String type;
 
   @NotNull(groups = {CreateGroup.class})
-  @NotBlank(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class, UpdateGroup.class})
   private String name;
 
   @NotNull(groups = {CreateGroup.class})
-  @NotBlank(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class, UpdateGroup.class})
   private String mobile;
 
   @NotNull(groups = {CreateGroup.class})
-  @NotBlank(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class, UpdateGroup.class})
   @Email
   private String email;
 
   @NotNull(groups = {CreateGroup.class})
-  @NotBlank(groups = {CreateGroup.class})
+  @NotBlank(groups = {CreateGroup.class, UpdateGroup.class})
   private String password;
 };

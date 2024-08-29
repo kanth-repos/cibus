@@ -11,11 +11,17 @@ import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.struts2.action.SessionAware;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 public class OrdersController implements ModelDriven<Object>, SessionAware {
+  private Set<ConstraintViolation<OrderDto>> violations;
+
   private OrderDto dto = new OrderDto();
   private List<OrderModel> orders;
   private OrderModel order;
@@ -57,7 +63,9 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
 
   @Override
   public Object getModel() {
-    if (orders != null) {
+    if (violations != null) {
+      return violations;
+    } else if (orders != null) {
       return orders;
     } else if (order != null) {
       return order;
@@ -124,7 +132,9 @@ public class OrdersController implements ModelDriven<Object>, SessionAware {
       final var orderRepo = new OrderRepository(connection);
       final var user = (UserModel) session.get(Constants.USER_SESSION);
 
-      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+      violations = Utility.validateCreateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
         return new DefaultHttpHeaders("create").withStatus(400);
       }
 

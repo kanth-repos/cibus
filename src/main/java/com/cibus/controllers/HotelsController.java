@@ -11,12 +11,18 @@ import com.cibus.utility.Utility;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.struts2.action.SessionAware;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 // Need to validate
 public class HotelsController implements ModelDriven<Object>, SessionAware {
+  private Set<ConstraintViolation<HotelDto>> violations;
+
   private HotelDto dto = new HotelDto();
   private List<HotelModel> hotels;
   private HotelModel hotel;
@@ -49,7 +55,9 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
 
   @Override
   public Object getModel() {
-    if (hotels != null) {
+    if (violations != null) {
+      return violations;
+    } else if (hotels != null) {
       return hotels;
     } else if (hotel != null) {
       return hotel;
@@ -104,7 +112,9 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
       final var user = (UserModel) session.get(Constants.USER_SESSION);
       final var repo = new HotelRepository(connection);
 
-      if(!Utility.validateCreateGroupDto(dto).isEmpty()) {
+      violations = Utility.validateCreateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
         return new DefaultHttpHeaders("create").withStatus(400);
       }
 
@@ -135,8 +145,10 @@ public class HotelsController implements ModelDriven<Object>, SessionAware {
         return new DefaultHttpHeaders("update").withStatus(400);
       }
 
-      if(!Utility.validateUpdateGroupDto(dto).isEmpty()) {
-        return new DefaultHttpHeaders("create").withStatus(400);
+      violations = Utility.validateUpdateGroupDto(dto);
+
+      if(!violations.isEmpty()) {
+        return new DefaultHttpHeaders("update").withStatus(400);
       }
 
       if (!userRepo.isOwnerOfHotel(user.getId(), getId())) {
